@@ -1,4 +1,4 @@
-#include "bannerwidget.h"
+#include "src/bannerwidget.h"
 
 BannerWidget::BannerWidget(QWidget *parent) :
     QFrame(parent)

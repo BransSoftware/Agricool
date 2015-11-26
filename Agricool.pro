@@ -12,12 +12,12 @@ TARGET = Agricool
 TEMPLATE = app
 
 
-SOURCES += main.cpp\
-        mainwindow.cpp \
-    bannerwidget.cpp
+SOURCES += src/main.cpp\
+		src/mainwindow.cpp \
+		src/bannerwidget.cpp
 
-HEADERS  += mainwindow.h \
-    bannerwidget.h
+HEADERS  += src/mainwindow.h \
+		src/bannerwidget.h
 
 RESOURCES += \
     resources.qrc
