@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/">
+        <file>resources/icons/plot.png</file>
+        <file>resources/icons/tractor.png</file>
+        <file>resources/icons/bag.png</file>
+        <file>resources/icons/barchart.png</file>
+        <file>resources/icons/edit.png</file>
+        <file>resources/icons/expand.png</file>
+        <file>resources/icons/shrink.png</file>
+    </qresource>
+</RCC>
