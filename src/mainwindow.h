@@ -6,7 +6,7 @@
 #include <QMenu>
 #include <QToolBar>
 #include <QScrollArea>
-#include <bannerwidget.h>
+#include <src/bannerwidget.h>
 
 class MainWindow : public QMainWindow
 {
