@@ -4,20 +4,22 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui \
+            sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = Agricool
 TEMPLATE = app
 
+SOURCES += src/main.cpp \
+    src/ui/bannerwidget.cpp \
+    src/ui/mainwindow.cpp \
+    src/service/bddService.cpp
 
-SOURCES += src/bannerwidget.cpp \
-    src/main.cpp \
-    src/mainwindow.cpp
-
-HEADERS  += src/bannerwidget.h \
-    src/mainwindow.h
+HEADERS  += src/ui/bannerwidget.h \
+    src/ui/mainwindow.h \
+    src/service/bddService.h
 
 RESOURCES += \
     resources.qrc
