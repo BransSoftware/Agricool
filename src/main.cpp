@@ -4,11 +4,12 @@
 
 int main(int argc, char *argv[])
 {
+    QApplication a(argc, argv);
+
     // Init services
     new BddService();
 
     // Init UI
-    QApplication a(argc, argv);
     MainWindow w;
     w.show();
 
