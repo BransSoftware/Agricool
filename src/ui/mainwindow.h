@@ -7,13 +7,14 @@
 #include <QToolBar>
 #include <QScrollArea>
 #include "bannerwidget.h"
+#include "../service/bddService.h"
 
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = 0);
+    MainWindow(BddService* bddService, QWidget *parent = 0);
     ~MainWindow();
 
 private:

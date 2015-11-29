@@ -1,9 +1,13 @@
 #include "mainwindow.h"
 
 
-MainWindow::MainWindow(QWidget *parent)
+MainWindow::MainWindow(BddService* bddService, QWidget *parent)
     : QMainWindow(parent)
 {
+    // Get plot from database
+    PlotModel* plot = bddService->getModel<PlotModel>();
+    plot->select();
+
     //checkUser();
     //initDB();
     initMenus();

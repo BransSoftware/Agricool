@@ -15,11 +15,13 @@ TEMPLATE = app
 SOURCES += src/main.cpp \
     src/ui/bannerwidget.cpp \
     src/ui/mainwindow.cpp \
-    src/service/bddService.cpp
+    src/service/bddService.cpp \
+    src/model/plotmodel.cpp
 
 HEADERS  += src/ui/bannerwidget.h \
     src/ui/mainwindow.h \
-    src/service/bddService.h
+    src/service/bddService.h \
+    src/model/plotmodel.h
 
 RESOURCES += \
     resources.qrc
