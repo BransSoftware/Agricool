@@ -11,10 +11,10 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = Agricool
 TEMPLATE = app
 CONFIG += c++11
-
 SOURCES += src/main.cpp\
-    src/mainwindow.cpp \
-    src/bannerwidget.cpp \
+    src/ui/bannerwidget.cpp \
+    src/ui/mainwindow.cpp \
+    src/service/bddService.cpp \
     src/plot.cpp \
     src/culturecycle.cpp \
     src/operation.cpp \
@@ -24,9 +24,9 @@ SOURCES += src/main.cpp\
     src/product.cpp \
     src/toolusage.cpp \
     src/productusage.cpp
-
-HEADERS  += src/mainwindow.h \
-    src/bannerwidget.h \
+    src/model/plotmodel.cpp
+HEADERS  += mainwindow.h \
+    bannerwidget.h
     src/plot.h \
     src/culturecycle.h \
     src/operation.h \
