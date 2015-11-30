@@ -1,10 +1,16 @@
-#include "mainwindow.h"
+#include "service/bddService.h"
+#include "ui/mainwindow.h"
 #include <QApplication>
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    MainWindow w;
+
+    // Init service
+    BddService* bddService = new BddService();
+
+    // Init UI
+    MainWindow w(bddService);
     w.show();
 
     return a.exec();
