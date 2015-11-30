@@ -7,10 +7,10 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
 
     // Init service
-    BddService* bddService = new BddService();
+    BddService bddService;
 
     // Init UI
-    MainWindow w(bddService);
+    MainWindow w(&bddService);
     w.show();
 
     return a.exec();

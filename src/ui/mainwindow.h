@@ -14,7 +14,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    MainWindow(BddService* bddService, QWidget *parent = 0);
+    MainWindow(BddService *bddService, QWidget *parent = 0);
     ~MainWindow();
 
 private:

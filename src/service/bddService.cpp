@@ -1,6 +1,6 @@
 #include "bddService.h"
 
-BddService::BddService()
+BddService::BddService(QObject *parent) : QObject(parent)
 {
     db = QSqlDatabase::addDatabase("QSQLITE");
     db.setDatabaseName(QFileInfo( QCoreApplication::applicationFilePath() ).absolutePath() + "/bdd.sqlite");
@@ -10,11 +10,10 @@ BddService::BddService()
         qDebug() << db.lastError();
     }
 
-    models.append(new PlotModel(new QObject(), db));
+    models.append(new PlotModel(this, db));
 }
 
 BddService::~BddService()
 {
     db.close();
-    db = NULL;
 }

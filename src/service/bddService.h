@@ -1,13 +1,17 @@
 #ifndef BDDSERVICE_H
 #define BDDSERVICE_H
 
+#include <QObject>
 #include <QtSql/QtSql>
 #include "../model/plotmodel.h"
 
-class BddService
+class BddService : public QObject
 {
+    Q_OBJECT
+
 public :
-    BddService();
+
+    BddService(QObject * parent = 0);
     ~BddService();
 
     template <typename T>

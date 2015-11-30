@@ -1,4 +1,4 @@
-#include "src/bannerwidget.h"
+#include "src/ui/bannerwidget.h"
 
 BannerWidget::BannerWidget(QWidget *parent) :
     QFrame(parent)
@@ -44,7 +44,6 @@ void BannerWidget::showHideDetails(){
 
 
     if (!details1->isVisible()){
-        qDebug("expand button clicked");
         details1->show();
         details2->show();
         details3->show();
@@ -53,7 +52,6 @@ void BannerWidget::showHideDetails(){
         this->setMinimumSize(400,160);
     }
     else{
-        qDebug("shrink button clicked");
         details1->hide();
         details2->hide();
         details3->hide();

@@ -15,28 +15,31 @@ SOURCES += src/main.cpp\
     src/ui/bannerwidget.cpp \
     src/ui/mainwindow.cpp \
     src/service/bddService.cpp \
-    src/plot.cpp \
-    src/culturecycle.cpp \
-    src/operation.cpp \
-    src/event.cpp \
-    src/harvest.cpp \
-    src/tool.cpp \
-    src/product.cpp \
-    src/toolusage.cpp \
-    src/productusage.cpp
-    src/model/plotmodel.cpp
-HEADERS  += mainwindow.h \
-    bannerwidget.h
-    src/plot.h \
-    src/culturecycle.h \
-    src/operation.h \
-    src/event.h \
-    src/harvest.h \
-    src/tool.h \
-    src/product.h \
-    src/toolusage.h \
-    src/productusage.h \
-    src/enums.h
+    src/model/culturecycle.cpp \
+    src/model/event.cpp \
+    src/model/harvest.cpp \
+    src/model/operation.cpp \
+    src/model/plot.cpp \
+    src/model/plotmodel.cpp \
+    src/model/product.cpp \
+    src/model/productusage.cpp \
+    src/model/tool.cpp \
+    src/model/toolusage.cpp
+
+HEADERS  += src/model/culturecycle.h \
+    src/model/enums.h \
+    src/model/event.h \
+    src/model/harvest.h \
+    src/model/operation.h \
+    src/model/plot.h \
+    src/model/plotmodel.h \
+    src/model/product.h \
+    src/model/productusage.h \
+    src/model/tool.h \
+    src/model/toolusage.h \
+    src/service/bddService.h \
+    src/ui/bannerwidget.h \
+    src/ui/mainwindow.h
 
 RESOURCES += \
     resources.qrc

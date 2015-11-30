@@ -1,4 +1,4 @@
-#include "src/mainwindow.h"
+#include "src/ui/mainwindow.h"
 
 
 MainWindow::MainWindow(BddService* bddService, QWidget *parent)

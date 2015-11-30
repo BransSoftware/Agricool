@@ -11,7 +11,7 @@ bool PlotModel::select()
 {
     bool res = QSqlTableModel::select();
 
-    qDebug() << record(0).value(1).toString();
+    qDebug() << "reading record : " << record(0).value(1).toString();
 
     return res;
 }
