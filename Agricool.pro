@@ -20,11 +20,12 @@ SOURCES += src/main.cpp\
     src/model/harvest.cpp \
     src/model/operation.cpp \
     src/model/plot.cpp \
-    src/model/plotmodel.cpp \
     src/model/product.cpp \
     src/model/productusage.cpp \
     src/model/tool.cpp \
-    src/model/toolusage.cpp
+    src/model/toolusage.cpp \
+    src/dao/plotdao.cpp \
+    src/dao/culturecycledao.cpp
 
 HEADERS  += src/model/culturecycle.h \
     src/model/enums.h \
@@ -32,14 +33,15 @@ HEADERS  += src/model/culturecycle.h \
     src/model/harvest.h \
     src/model/operation.h \
     src/model/plot.h \
-    src/model/plotmodel.h \
     src/model/product.h \
     src/model/productusage.h \
     src/model/tool.h \
     src/model/toolusage.h \
     src/service/bddService.h \
     src/ui/bannerwidget.h \
-    src/ui/mainwindow.h
+    src/ui/mainwindow.h \
+    src/dao/plotdao.h \
+    src/dao/culturecycledao.h
 
 RESOURCES += \
     resources.qrc
