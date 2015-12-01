@@ -31,26 +31,106 @@ void BddService::createSchema()
 {
     qDebug() << "Create schema";
 
-    // Plot Table
+    // ToolUsage table
+    db.exec(QString("CREATE TABLE `ToolUsage` ("
+    "	`toolUsageID`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,"
+    "	`operationID`	INTEGER NOT NULL,"
+    "	`toolID`	INTEGER NOT NULL,"
+    "	`toolUsageDuration`	REAL,"
+    "	`toolUsageDate`	INTEGER, "
+    "	FOREIGN KEY(`operationID`) REFERENCES `Operation`,"
+    "	FOREIGN KEY(`toolID`) REFERENCES Tool "
+    ");"));
+    
+    // Tool table
+    db.exec(QString("CREATE TABLE `Tool` ("
+    "	`toolID`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,"
+    "	`toolName`	TEXT NOT NULL,"
+    "	`costPerHour`	REAL,"
+    "	`toolType`	TEXT"
+    ");"));
+    
+    // ProductUsage table
+    db.exec(QString("CREATE TABLE `ProductUsage` ("
+    "	`productUsageID`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,"
+    "	`operationID`	INTEGER NOT NULL,"
+    "	`productID`	INTEGER NOT NULL,"
+    "	`productQuantities`	REAL,"
+    "	`productUsageDate`	INTEGER,"
+    "	FOREIGN KEY(`operationID`) REFERENCES `Operation`,"
+    "	FOREIGN KEY(`productID`) REFERENCES Product"
+    ");"));
+    
+    // Product table
+    db.exec(QString("CREATE TABLE `Product` ("
+    "	`productID`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,"
+    "	`productName`	TEXT NOT NULL,"
+    "	`quantityUnitSymbol`	TEXT,"
+    "	`pricePerQuantityUnit`	REAL, "
+    "	`productType`	TEXT"
+    ");"));
+    
+    // Plot table
     db.exec(QString("CREATE TABLE `Plot` ("
-            "`plotID`	INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,"
-            "`name`	TEXT NOT NULL,"
-            "`size`	REAL,"
-            "`isOwned`	INTEGER DEFAULT 1,"
-            "`yearlyRent`	REAL,"
-            "`comment`	TEXT,"
-            "`soilQuality`	INTEGER DEFAULT 1,"
-            "`waterDrainage`	INTEGER DEFAULT 1,"
-            "`rocksQuantity`	INTEGER DEFAULT 0,"
-            "`animalDamageRisks`	INTEGER DEFAULT 0,"
-            "`climateDamageRisks`	INTEGER DEFAULT 0)"));
-    db.exec("INSERT INTO `Plot`(`plotID`,`name`,`size`,`yearlyRent`,`comment`) VALUES (1,'Plot1',NULL,NULL,NULL);");
-    db.exec("INSERT INTO `Plot`(`plotID`,`name`,`size`,`yearlyRent`,`comment`) VALUES (2,'Plot2',NULL,NULL,NULL);");
-    db.exec("INSERT INTO `Plot`(`plotID`,`name`,`size`,`yearlyRent`,`comment`) VALUES (3,'Plot3',NULL,NULL,NULL);");
-
-    // CultureCycle Table
+    "	`plotID`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,"
+    "	`name`	TEXT NOT NULL,"
+    "	`size`	REAL,"
+    "	`isOwned`	INTEGER,"
+    "	`yearlyRent`	REAL,"
+    "	`comment`	TEXT,"
+    "	`soilQuality`	INTEGER DEFAULT 0,"
+    "	`waterDrainage`	INTEGER DEFAULT 0,"
+    "	`rocksQuantity`	INTEGER DEFAULT 0,"
+    "	`animalDamageRisks`	INTEGER DEFAULT 0,"
+    "	`climateDamageRisks`	INTEGER DEFAULT 0"
+    ");"));
+    
+    // Operation table
+    db.exec(QString("CREATE TABLE `Operation` ("
+    "	`operationID`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,"
+    "	`cycleID`	INTEGER NOT NULL,"
+    "	`operationDate`	INTEGER,"
+    "	`duration`	REAL,"
+    "	`employeeWorkHourCost`	REAL,"
+    "	`operationType`	INTEGER NOT NULL,"
+    "	`openComment`	TEXT,"
+    "	FOREIGN KEY(`cycleID`) REFERENCES CultureCycle"
+    ");"));
+    
+    // Harvest table
+    db.exec(QString("CREATE TABLE `Harvest` ( "
+    "	`harvestID`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,"
+    "	`cycleID`	INTEGER NOT NULL,"
+    "	`harvestProduct`	TEXT,"
+    "	`harvestQuantity`	INTEGER,"
+    "	`quantityUnitSymbol`	TEXT,"
+    "	`pricePerQuantity`	REAL,"
+    "	`qualityComment`	TEXT,"
+    "	FOREIGN KEY(`cycleID`) REFERENCES CultureCycle"
+    ");"));
+    
+    // Event table
+    db.exec(QString("CREATE TABLE `Event` ("
+    "	`eventID`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,"
+    "	`cycleID`	INTEGER NOT NULL,"
+    "	`financialIncome`	REAL,"
+    "	`financialCost`	REAL,"
+    "	`actualAreaGained`	REAL,"
+    "	`actualAreaLost`	REAL,"
+    "	`eventDescription`	TEXT,"
+    "	FOREIGN KEY(`cycleID`) REFERENCES CultureCycle"
+    ");"));
+    
+    // CultureCycle table
     db.exec(QString("CREATE TABLE `CultureCycle` ("
-            "`cultureCycleID`	INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,"
-            "`name`	TEXT NOT NULL)"));
-    db.exec("INSERT INTO `CultureCycle`(`cultureCycleID`,`name`) VALUES (1,'CultureCycle1');");
+    "	`cycleID`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,"
+    "	`plotID`	INTEGER NOT NULL,"
+    "	`startDate`	INTEGER,"
+    "	`endDate`	INTEGER,"
+    "	`isComplete`	INTEGER,"
+    "	`estimatedCost`	REAL,"
+    "	`estimatedIncome`	REAL,"
+    "	`openComment`	TEXT,"
+    "	FOREIGN KEY(`plotID`) REFERENCES Plot"
+    ");"));
 }
