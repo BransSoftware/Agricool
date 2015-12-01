@@ -6,8 +6,8 @@
 #include <QMenu>
 #include <QToolBar>
 #include <QScrollArea>
-#include "bannerwidget.h"
-#include "../service/bddService.h"
+#include "src/ui/bannerwidget.h"
+#include "src/service/bddService.h"
 
 class MainWindow : public QMainWindow
 {
@@ -17,12 +17,15 @@ public:
     MainWindow(BddService *bddService, QWidget *parent = 0);
     ~MainWindow();
 
+        void testAnimation();
+
 private:
     QMenuBar* mBar;
 
     void initMenus();
     void initToolbar();
     void initPlots();
+
 
 
     QMenu* fileMenu;

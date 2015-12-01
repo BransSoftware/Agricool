@@ -5,8 +5,8 @@
 #include <QDateTime>
 #include <QList>
 #include <QString>
-#include "enums.h"
-#include "culturecycle.h"
+#include "src/core/enums.h"
+#include "src/core/culturecycle.h"
 
 class CultureCycle;
 

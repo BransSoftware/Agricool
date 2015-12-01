@@ -1,4 +1,4 @@
-#include "plotdao.h"
+#include "src/dao/plotdao.h"
 
 PlotDao::PlotDao(QObject *parent, QSqlDatabase db)
     : QSqlTableModel(parent, db)

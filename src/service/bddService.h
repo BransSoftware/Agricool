@@ -3,7 +3,7 @@
 
 #include <QObject>
 #include <QtSql/QtSql>
-#include "../dao/plotdao.h"
+#include "src/dao/plotdao.h"
 
 class BddService : public QObject
 {

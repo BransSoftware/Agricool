@@ -4,12 +4,12 @@
 #include <QObject>
 #include <QDateTime>
 #include <QString>
-#include "enums.h"
-#include "tool.h"
-#include "product.h"
-#include "toolusage.h"
-#include "productusage.h"
-#include "culturecycle.h"
+#include "src/core/enums.h"
+#include "src/core/tool.h"
+#include "src/core/product.h"
+#include "src/core/toolusage.h"
+#include "src/core/productusage.h"
+#include "src/core/culturecycle.h"
 
 class CultureCycle;
 class ToolUsage;

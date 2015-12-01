@@ -2,7 +2,7 @@
 #define CULTURECYCLEDAO_H
 
 #include <QtSql/QtSql>
-#include "../model/culturecycle.h"
+#include "src/core/culturecycle.h"
 
 class CultureCycleDao : public QSqlTableModel
 {

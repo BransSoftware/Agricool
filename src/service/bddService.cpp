@@ -1,4 +1,4 @@
-#include "bddService.h"
+#include "src/service/bddService.h"
 
 BddService::BddService(QObject *parent) : QObject(parent)
 {    

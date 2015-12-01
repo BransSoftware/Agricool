@@ -2,8 +2,8 @@
 #define PLOTDAO_H
 
 #include <QtSql/QtSql>
-#include "../model/plot.h"
-#include "culturecycledao.h"
+#include "src/core/plot.h"
+#include "src/dao/culturecycledao.h"
 
 class PlotDao : public QSqlTableModel
 {

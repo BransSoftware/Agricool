@@ -41,27 +41,22 @@ BannerWidget::BannerWidget(QWidget *parent) :
 
 void BannerWidget::showHideDetails(){
 
-
-
     if (!details1->isVisible()){
-        details1->show();
-        details2->show();
-        details3->show();
-        expand->setToolTip(tr("Hide Details"));
-        expand->setIcon(QIcon(":/resources/icons/shrink.png"));
-        this->setMinimumSize(400,160);
-    }
-    else{
-        details1->hide();
-        details2->hide();
-        details3->hide();
-        expand->setToolTip(tr("Show Details"));
-        expand->setIcon(QIcon(":/resources/icons/expand.png"));
-        this->setMinimumSize(400,40);
-    }
-
-    this->update();
-
+            details1->show();
+            details2->show();
+            details3->show();
+            expand->setToolTip(tr("Hide Details"));
+            expand->setIcon(QIcon(":/resources/icons/shrink.png"));
+            this->setMinimumSize(400,160);
+        }
+        else{
+            details1->hide();
+            details2->hide();
+            details3->hide();
+            expand->setToolTip(tr("Show Details"));
+            expand->setIcon(QIcon(":/resources/icons/expand.png"));
+            this->setMinimumSize(400,40);
+        }
 
 }
 

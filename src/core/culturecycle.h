@@ -4,11 +4,11 @@
 #include <QObject>
 #include <QDateTime>
 #include <QList>
-#include "enums.h"
-#include "plot.h"
-#include "harvest.h"
-#include "event.h"
-#include "operation.h"
+#include "src/core/enums.h"
+#include "src/core/plot.h"
+#include "src/core/harvest.h"
+#include "src/core/event.h"
+#include "src/core/operation.h"
 
 class Plot;
 class Operation;

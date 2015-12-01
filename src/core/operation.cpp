@@ -1,4 +1,4 @@
-#include "operation.h"
+#include "src/core/operation.h"
 
 Operation::Operation(int id, CultureCycle *c, QString opName, QDateTime date, int dur, int hourCost, OperationType opT, QString com) :
     QObject(c), operationID(id), cycle(c), operationName(opName), operationDate(date), duration(dur), employeeWorkHourCost(hourCost), operationType(opT), comment(com)

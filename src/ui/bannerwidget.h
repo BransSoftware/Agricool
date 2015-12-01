@@ -5,7 +5,7 @@
 #include <QLabel>
 #include <QPushButton>
 #include <QGridLayout>
-
+#include <QPropertyAnimation>
 
 class BannerWidget : public QFrame
 {

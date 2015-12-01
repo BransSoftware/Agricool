@@ -1,4 +1,4 @@
-#include "event.h"
+#include "src/core/event.h"
 
 Event::Event(int id, CultureCycle *c, int inc, int cost, int areaGain, int areaLost, QString desc ) :
     QObject(c), eventID(id), cycle(c), financialIncome(inc), financialCost(cost), actualAreaGained(areaGain), actualAreaLost(areaLost), eventDescription(desc)

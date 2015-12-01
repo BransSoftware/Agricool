@@ -1,4 +1,4 @@
-#include "harvest.h"
+#include "src/core/harvest.h"
 
 
 Harvest::Harvest(int id, CultureCycle *c, QString name, int q, int incPQU, QuantityUnit qU, QString com) :

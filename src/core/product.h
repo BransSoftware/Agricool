@@ -3,7 +3,7 @@
 
 #include <QObject>
 #include <QString>
-#include "enums.h"
+#include "src/core/enums.h"
 
 
 class Product : public QObject

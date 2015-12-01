@@ -16,6 +16,10 @@ MainWindow::MainWindow(BddService* bddService, QWidget *parent)
         qDebug() << cultureCycle->getCycleName();
     }
 
+    //deleting parentless objects to avoid memory leak
+    while (!allCultureCycles.isEmpty())
+        delete allCultureCycles.takeFirst();
+
     //checkUser();
     //initDB();
     initMenus();
@@ -25,6 +29,22 @@ MainWindow::MainWindow(BddService* bddService, QWidget *parent)
     //initConsumables();
     //loadDB();
     //loadPreferences();
+
+
+}
+
+void MainWindow::testAnimation(){
+    qDebug() <<"animation started";
+    QPoint orig = this->pos();
+    QPropertyAnimation *anim = new QPropertyAnimation(this, "pos");
+    anim->setStartValue(orig);
+    anim->setEndValue(orig);
+    anim->setDuration(4000);
+    anim->setKeyValueAt(0.25, QPoint(orig.x()+200, orig.y()));
+    anim->setKeyValueAt(0.5,  QPoint(orig.x()+200, orig.y()+200));
+    anim->setKeyValueAt(0.75,  QPoint(orig.x(), orig.y()+200));
+    anim->setLoopCount(5);
+    anim->start(QAbstractAnimation::DeleteWhenStopped);
 }
 
 void MainWindow::initMenus(){
@@ -60,7 +80,7 @@ void MainWindow::initPlots(){
     for(int i =0; i<10;i++)
         lay->addWidget(new BannerWidget(plotWidget),0,Qt::AlignTop);
 
-
+    lay->addStretch(100);
     plotWidget->setLayout(lay);
     this->setCentralWidget(plotWidget);
     plotWidget->show();

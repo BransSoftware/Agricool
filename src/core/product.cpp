@@ -1,4 +1,4 @@
-#include "product.h"
+#include "src/core/product.h"
 
 Product::Product(int id, QString name, QuantityUnit unit, int ppq, ProductType t, QObject *parent) :
     QObject(parent), productID(id), productName(name), quantityUnit(unit), pricePerQuantityUnit(ppq), productType(t)

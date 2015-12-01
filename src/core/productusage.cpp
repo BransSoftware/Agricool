@@ -1,4 +1,4 @@
-#include "productusage.h"
+#include "src/core/productusage.h"
 
 ProductUsage::ProductUsage(int id, Operation *op, Product *product, int quantity):
     QObject(op), productUsageID(id), operation(op), productUsed(product), quantityUsed(quantity)

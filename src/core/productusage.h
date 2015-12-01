@@ -2,8 +2,8 @@
 #define PRODUCTUSAGE_H
 
 #include <QObject>
-#include "product.h"
-#include "operation.h"
+#include "src/core/product.h"
+#include "src/core/operation.h"
 
 class Operation;
 

@@ -1,4 +1,4 @@
-#include "tool.h"
+#include "src/core/tool.h"
 
 Tool::Tool(int id, QString name, int cph, ToolType t, QObject *parent) :
     QObject(parent), toolID(id), toolName(name), costPerHour(cph), type(t)

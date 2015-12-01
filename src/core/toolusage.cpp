@@ -1,4 +1,4 @@
-#include "toolusage.h"
+#include "src/core/toolusage.h"
 
 ToolUsage::ToolUsage(int id, Operation *op, Tool *tool, int duration) :
     QObject(op), toolUsageID(id), toolUsed(tool), useDuration(duration)

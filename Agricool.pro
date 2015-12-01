@@ -24,9 +24,6 @@ SOURCES += src/core/culturecycle.cpp \
     src/core/toolusage.cpp \
     src/dao/plotdao.cpp \
     src/dao/culturecycledao.cpp \
-    src/service/bddService.cpp \
-    src/ui/bannerwidget.cpp \
-    src/ui/mainwindow.cpp
     src/ui/bannerwidget.cpp \
     src/ui/mainwindow.cpp \
     src/service/bddService.cpp

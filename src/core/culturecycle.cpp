@@ -1,4 +1,4 @@
-#include "culturecycle.h"
+#include "src/core/culturecycle.h"
 
 CultureCycle::CultureCycle(int id, Plot *p, QString name, double area, QDateTime startD, QDateTime endD, bool complete, QString com, int estimatedC, int estimatedI):
     QObject(p), cycleID(id), cycleName(name),  cultivatedPlot(p), initialAreaSize(area), startDate(startD), endDate(endD), isComplete(complete), comment(com), estimatedCost(estimatedC), estimatedIncome(estimatedI)

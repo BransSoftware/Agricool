@@ -1,4 +1,4 @@
-#include "culturecycledao.h"
+#include "src/dao/culturecycledao.h"
 
 CultureCycleDao::CultureCycleDao(QObject * parent, QSqlDatabase db)
     : QSqlTableModel(parent, db)
@@ -22,7 +22,7 @@ QList<CultureCycle*> CultureCycleDao::getAll()
 
         CultureCycle *cultureCycle = new CultureCycle(
                     record(i).value(0).toInt(), // id
-                    NULL,
+                    NULL, // <-- Attention, le Plot *p sert aussi de parent au CultureCycle. Si tu mets NULL, tu dois détruire l'objet toi-même
                     record(i).value(1).toString() // name
                   );
 

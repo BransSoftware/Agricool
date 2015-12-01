@@ -3,7 +3,7 @@
 
 #include <QObject>
 #include <QString>
-#include "culturecycle.h"
+#include "src/core/culturecycle.h"
 
 class CultureCycle;
 

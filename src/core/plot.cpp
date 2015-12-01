@@ -1,4 +1,4 @@
-#include "plot.h"
+#include "src/core/plot.h"
 
 Plot::Plot(int id, QString name, double s, bool ow, int rent, QString com, SubjectiveQuality sq, SubjectiveQuality wd, SubjectiveFrequency rq, \
            SubjectiveFrequency ar, SubjectiveFrequency cr, QObject *parent) :

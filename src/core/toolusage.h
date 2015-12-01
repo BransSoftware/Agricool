@@ -2,8 +2,8 @@
 #define TOOLUSAGE_H
 
 #include <QObject>
-#include "operation.h"
-#include "tool.h"
+#include "src/core/operation.h"
+#include "src/core/tool.h"
 
 class Operation;
 
