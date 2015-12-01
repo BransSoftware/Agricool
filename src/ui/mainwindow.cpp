@@ -1,4 +1,6 @@
 #include "src/ui/mainwindow.h"
+#include "src/dao/culturecycledao.h"
+#include "src/dao/plotdao.h"
 
 MainWindow::MainWindow(BddService* bddService, QWidget *parent)
     : QMainWindow(parent)
@@ -7,13 +9,13 @@ MainWindow::MainWindow(BddService* bddService, QWidget *parent)
     QList<Plot*> allPlots = bddService->getDao<PlotDao>()->getAll();
     for(Plot* plot : allPlots)
     {
-        qDebug() << plot->getPlotName();
+        qDebug() << "Plot: " << plot->getPlotName();
     }
 
     QList<CultureCycle*> allCultureCycles = bddService->getDao<CultureCycleDao>()->getAll();
     for(CultureCycle* cultureCycle : allCultureCycles)
     {
-        qDebug() << cultureCycle->getCycleName();
+        qDebug() << "CultureCycle: " << cultureCycle->getCycleName() << " " << cultureCycle->getCultivatedPlot()->getPlotName();
     }
 
     //deleting parentless objects to avoid memory leak

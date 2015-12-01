@@ -1,9 +1,11 @@
 #include "src/service/bddService.h"
+#include "src/dao/culturecycledao.h"
+#include "src/dao/plotdao.h"
 
 BddService::BddService(QObject *parent) : QObject(parent)
 {    
     QFileInfo dbPath( QFileInfo(QCoreApplication::applicationFilePath()).absolutePath() + "/db.sqlite");
-    bool createSchema = !dbPath.exists();
+    bool createSchema = true; //!dbPath.exists();
 
     db = QSqlDatabase::addDatabase("QSQLITE");
     db.setDatabaseName(dbPath.absoluteFilePath());
@@ -13,9 +15,10 @@ BddService::BddService(QObject *parent) : QObject(parent)
         qDebug() << db.lastError();
     }
 
-    //if (createSchema)
+    if (createSchema)
     {
         this->createSchema();
+        this->createData();
     }
 
     models.append(new PlotDao(this, db));
@@ -29,7 +32,17 @@ BddService::~BddService()
 
 void BddService::createSchema()
 {
-    qDebug() << "Create schema";
+    qDebug() << "Create a new schema";
+
+    db.exec("DROP TABLE `ToolUsage`");
+    db.exec("DROP TABLE `Tool`");
+    db.exec("DROP TABLE `ProductUsage`");
+    db.exec("DROP TABLE `Product`");
+    db.exec("DROP TABLE `Plot`");
+    db.exec("DROP TABLE `Operation`");
+    db.exec("DROP TABLE `Harvest`");
+    db.exec("DROP TABLE `Event`");
+    db.exec("DROP TABLE `CultureCycle`");
 
     // ToolUsage table
     db.exec(QString("CREATE TABLE `ToolUsage` ("
@@ -125,12 +138,22 @@ void BddService::createSchema()
     db.exec(QString("CREATE TABLE `CultureCycle` ("
     "	`cycleID`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,"
     "	`plotID`	INTEGER NOT NULL,"
+    "   `name`	TEXT,"
+    "	`area`	REAL,"
     "	`startDate`	INTEGER,"
     "	`endDate`	INTEGER,"
-    "	`isComplete`	INTEGER,"
+    "	`isComplete`	INTEGER DEFAULT 0,"
     "	`estimatedCost`	REAL,"
     "	`estimatedIncome`	REAL,"
     "	`openComment`	TEXT,"
     "	FOREIGN KEY(`plotID`) REFERENCES Plot"
     ");"));
+}
+
+void BddService::createData()
+{
+    qDebug() << "Create data";
+
+    db.exec("INSERT INTO `Plot` (plotID,name,size,isOwned,yearlyRent,comment,soilQuality,waterDrainage,rocksQuantity,animalDamageRisks,climateDamageRisks) VALUES (1,'Parcelle_Routeau',4.4,1,NULL,NULL,3,0,0,0,0)");
+    db.exec("INSERT INTO `CultureCycle` (cycleID,plotID,name,area,startDate,endDate,isComplete,estimatedCost,estimatedIncome,openComment) VALUES (1,1,'Culture Cycle 1',3,1449005000,NULL,0,10000.0,12000.0,NULL)");
 }
