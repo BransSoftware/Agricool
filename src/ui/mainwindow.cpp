@@ -1,12 +1,20 @@
 #include "src/ui/mainwindow.h"
 
-
 MainWindow::MainWindow(BddService* bddService, QWidget *parent)
     : QMainWindow(parent)
 {
     // Get plot from database
-    PlotModel* plot = bddService->getModel<PlotModel>();
-    plot->select();
+    QList<Plot*> allPlots = bddService->getDao<PlotDao>()->getAll();
+    for(Plot* plot : allPlots)
+    {
+        qDebug() << plot->getPlotName();
+    }
+
+    QList<CultureCycle*> allCultureCycles = bddService->getDao<CultureCycleDao>()->getAll();
+    for(CultureCycle* cultureCycle : allCultureCycles)
+    {
+        qDebug() << cultureCycle->getCycleName();
+    }
 
     //checkUser();
     //initDB();

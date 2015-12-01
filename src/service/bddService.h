@@ -3,7 +3,7 @@
 
 #include <QObject>
 #include <QtSql/QtSql>
-#include "../model/plotmodel.h"
+#include "../dao/plotdao.h"
 
 class BddService : public QObject
 {
@@ -13,9 +13,10 @@ public :
 
     BddService(QObject * parent = 0);
     ~BddService();
+    void createSchema();
 
     template <typename T>
-    inline T* getModel()
+    inline T* getDao()
     {
         for(int i=0; i < models.size(); i++)
         {

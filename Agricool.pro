@@ -22,11 +22,11 @@ SOURCES += src/core/culturecycle.cpp \
     src/core/productusage.cpp \
     src/core/tool.cpp \
     src/core/toolusage.cpp \
+    src/dao/plotdao.cpp \
+    src/dao/culturecycledao.cpp
     src/ui/bannerwidget.cpp \
     src/ui/mainwindow.cpp \
     src/service/bddService.cpp \   
-    src/model/plotmodel.cpp \
-
 
 HEADERS  += src/core/culturecycle.h \
     src/core/enums.h \
@@ -38,10 +38,13 @@ HEADERS  += src/core/culturecycle.h \
     src/core/productusage.h \
     src/core/tool.h \
     src/core/toolusage.h \
+    src/dao/plotdao.h \
+    src/dao/culturecycledao.h
     src/model/plotmodel.h \
-    src/service/bddService.h \
+        src/service/bddService.h \
     src/ui/bannerwidget.h \
-    src/ui/mainwindow.h
+    src/ui/mainwindow.h \
+
 
 RESOURCES += \
     resources.qrc
