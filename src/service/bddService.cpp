@@ -23,6 +23,14 @@ BddService::BddService(QObject *parent) : QObject(parent)
 
     models.append(new PlotDao(this, db));
     models.append(new CultureCycleDao(this, db));
+    models.append(new EventDao(this, db));
+    models.append(new EventDao(this, db));
+    models.append(new HarvestDao(this, db));
+    models.append(new OperationDao(this, db));
+    models.append(new ProductDao(this, db));
+    models.append(new ProductUsageDao(this, db));
+    models.append(new ToolDao(this, db));
+    models.append(new ToolUsageDao(this, db));
 }
 
 BddService::~BddService()
