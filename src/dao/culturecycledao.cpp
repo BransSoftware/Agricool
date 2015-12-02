@@ -44,7 +44,7 @@ QList<CultureCycle*> CultureCycleDao::getAll()
 
 CultureCycle* CultureCycleDao::get(int id)
 {
-    query().exec(QString("SELECT * FROM " + tableName() + " WHERE plotID = %1").arg(id));
+    query().exec(QString("SELECT * FROM " + tableName() + " WHERE plotID = %1").arg(id)); //<-- fix : replace plotID with cycleID , no ?
 
     if (query().first())
     {
