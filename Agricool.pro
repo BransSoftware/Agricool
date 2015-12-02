@@ -42,7 +42,8 @@ HEADERS  += src/core/culturecycle.h \
     src/dao/culturecycledao.h \
     src/service/bddService.h \
     src/ui/bannerwidget.h \
-    src/ui/mainwindow.h
+    src/ui/mainwindow.h \
+    src/dao/daobase.h
 
 
 RESOURCES += \
