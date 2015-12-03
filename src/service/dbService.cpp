@@ -57,7 +57,7 @@ void DbService::createSchema()
     "	`toolID`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,"
     "	`toolName`	TEXT NOT NULL,"
     "	`costPerHour`	REAL,"
-    "	`toolType`	TEXT"
+    "	`toolType`	INTEGER"
     ");"));
     
     // ProductUsage table
@@ -75,9 +75,9 @@ void DbService::createSchema()
     db.exec(QString("CREATE TABLE `Product` ("
     "	`productID`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,"
     "	`productName`	TEXT NOT NULL,"
-    "	`quantityUnitSymbol`	TEXT,"
+    "	`quantityUnitSymbol`	INTEGER,"
     "	`pricePerQuantityUnit`	REAL, "
-    "	`productType`	TEXT"
+    "	`productType`	INTEGER"
     ");"));
     
     // Plot table
@@ -99,6 +99,7 @@ void DbService::createSchema()
     db.exec(QString("CREATE TABLE `Operation` ("
     "	`operationID`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,"
     "	`cycleID`	INTEGER NOT NULL,"
+    "	`name`	TEXT,"
     "	`operationDate`	INTEGER,"
     "	`duration`	REAL,"
     "	`employeeWorkHourCost`	REAL,"
@@ -113,8 +114,8 @@ void DbService::createSchema()
     "	`cycleID`	INTEGER NOT NULL,"
     "	`harvestProduct`	TEXT,"
     "	`harvestQuantity`	INTEGER,"
-    "	`quantityUnitSymbol`	TEXT,"
-    "	`pricePerQuantity`	REAL,"
+    "	`incomePerQuantityUnit`	INTEGER,"
+    "	`quantityUnit`	INTEGER,"
     "	`qualityComment`	TEXT,"
     "	FOREIGN KEY(`cycleID`) REFERENCES CultureCycle"
     ");"));
