@@ -8,6 +8,9 @@ HarvestDao::HarvestDao(DbService * parent, QSqlDatabase db)
 
 Harvest* HarvestDao::fillFromDb(QSqlRecord record)
 {
-    //return new Harvest(record.value(1));
+    CultureCycle* cultureCycle = dbService->getDao<CultureCycleDao>()->get(record.value(1).toInt());
+    return new Harvest(record.value(0).toInt(), // id
+        
+    );
     return NULL;
 }
