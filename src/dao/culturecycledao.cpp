@@ -34,14 +34,20 @@ QString CultureCycleDao::exportToDb(CultureCycle* model, QHash<QString, QString>
 {
     fields["cycleID"] = QString::number(model->getCycleID());
     fields["plotID"] = QString::number(model->getCultivatedPlot()->getPlotID());
-    fields["name"] = model->getCycleName();
+    if (!model->getCycleName().isEmpty())
+    {
+        fields["name"] = "'" + model->getCycleName() + "'";
+    }
     fields["area"] = QString::number(model->getActualCultivatedArea());
     fields["startDate"] = QString::number(model->getStartDate().toTime_t());
     fields["endDate"] = QString::number(model->getEndDate().toTime_t());
     fields["isComplete"] = QString::number(model->getIsComplete());
     fields["estimatedCost"] = QString::number(model->getEstimatedCost());
     fields["estimatedIncome"] = QString::number(model->getEstimatedIncome());
-    fields["openComment"] = model->getComment();
+    if (!model->getComment().isEmpty())
+    {
+        fields["openComment"] = "'" + model->getComment() + "'";
+    }
 
     return "cycleID";
 }

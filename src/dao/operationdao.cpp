@@ -28,12 +28,18 @@ QString OperationDao::exportToDb(Operation* model, QHash<QString, QString> &fiel
 {
     fields["operationID"] = QString::number(model->getOperationID());
     fields["cycleID"] = QString::number(model->getCycle()->getCycleID());
-    fields["name"] = model->getOperationName();
+    if (!model->getOperationName().isEmpty())
+    {
+        fields["name"] = "'" + model->getOperationName() + "'";
+    }
     fields["operationDate"] = QString::number(model->getOperationDate().toTime_t());
     fields["duration"] = QString::number(model->getDuration());
     fields["employeeWorkHourCost"] = QString::number(model->getEmployeeWorkHourCost());
     fields["operationType"] = QString::number(static_cast<int>(model->getOperationType()));
-    fields["openComment"] = model->getComment();
+    if (!model->getComment().isEmpty())
+    {
+        fields["openComment"] = "'" + model->getComment() + "'";
+    }
 
     return "operationID";
 }

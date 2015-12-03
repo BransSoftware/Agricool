@@ -24,11 +24,17 @@ QString HarvestDao::exportToDb(Harvest* model, QHash<QString, QString> &fields)
 {
     fields["harvestID"] = QString::number(model->getHarvestID());
     fields["cycleID"] = QString::number(model->getCycle()->getCycleID());
-    fields["harvestProduct"] = model->getPlantName();
+    if (!model->getPlantName().isEmpty())
+    {
+        fields["harvestProduct"] = "'" + model->getPlantName() + "'";
+    }
     fields["harvestQuantity"] = QString::number(model->getQuantity());
     fields["incomePerQuantityUnit"] = QString::number(model->getIncomePerQuantityUnit());
     fields["quantityUnit"] = QString::number(static_cast<int>(model->getQuantityUnit()));
-    fields["qualityComment"] = model->getQualityComment();
+    if (!model->getQualityComment().isEmpty())
+    {
+        fields["qualityComment"] = "'" + model->getQualityComment() + "'";
+    }
 
     return "harvestID";
 }

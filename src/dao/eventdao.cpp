@@ -28,7 +28,10 @@ QString EventDao::exportToDb(Event* model, QHash<QString, QString> &fields)
     fields["financialCost"] = QString::number(model->getFinancialCost());
     fields["actualAreaGained"] = QString::number(model->getActualAreaGained());
     fields["actualAreaLost"] = QString::number(model->getActualAreaLos());
-    fields["eventDescription"] = model->getEventDescription();
+    if (!model->getEventDescription().isEmpty())
+    {
+        fields["eventDescription"] = "'" + model->getEventDescription() + "'";
+    }
 
     return "eventID";
 }
