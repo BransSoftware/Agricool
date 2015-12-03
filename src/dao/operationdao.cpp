@@ -1,6 +1,6 @@
 #include "operationdao.h"
 
-OperationDao::OperationDao(QObject * parent, QSqlDatabase db)
+OperationDao::OperationDao(DbService * parent, QSqlDatabase db)
     : DaoBase<Operation>(parent, db)
 {
     setTable("Operation");

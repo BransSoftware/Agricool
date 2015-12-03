@@ -1,18 +1,17 @@
 #include "src/ui/mainwindow.h"
-#include "src/dao/culturecycledao.h"
 #include "src/dao/plotdao.h"
 
-MainWindow::MainWindow(BddService* bddService, QWidget *parent)
+MainWindow::MainWindow(DbService *dbService, QWidget *parent)
     : QMainWindow(parent)
 {
     // Get plot from database
-    QList<Plot*> allPlots = bddService->getDao<PlotDao>()->getAll();
+    QList<Plot*> allPlots = dbService->getDao<PlotDao>()->getAll();
     for(Plot* plot : allPlots)
     {
         qDebug() << "Plot: " << plot->getPlotName();
     }
 
-    QList<CultureCycle*> allCultureCycles = bddService->getDao<CultureCycleDao>()->getAll();
+    QList<CultureCycle*> allCultureCycles = dbService->getDao<CultureCycleDao>()->getAll();
     for(CultureCycle* cultureCycle : allCultureCycles)
     {
         qDebug() << "CultureCycle: " << cultureCycle->getCycleName() << " " << cultureCycle->getCultivatedPlot()->getPlotName();

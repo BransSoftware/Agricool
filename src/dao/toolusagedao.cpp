@@ -1,6 +1,6 @@
 #include "toolusagedao.h"
 
-ToolUsageDao::ToolUsageDao(QObject * parent, QSqlDatabase db)
+ToolUsageDao::ToolUsageDao(DbService * parent, QSqlDatabase db)
     : DaoBase<ToolUsage>(parent, db)
 {
     setTable("ToolUsage");

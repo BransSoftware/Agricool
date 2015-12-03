@@ -1,8 +1,6 @@
-#include "src/service/bddService.h"
-#include "src/dao/culturecycledao.h"
-#include "src/dao/plotdao.h"
+#include "src/service/dbService.h"
 
-BddService::BddService(QObject *parent) : QObject(parent)
+DbService::DbService(QObject *parent) : QObject(parent)
 {    
     QFileInfo dbPath( QFileInfo(QCoreApplication::applicationFilePath()).absolutePath() + "/db.sqlite");
     bool createSchema = true; //!dbPath.exists();
@@ -21,24 +19,15 @@ BddService::BddService(QObject *parent) : QObject(parent)
         this->createData();
     }
 
-    models.append(new PlotDao(this, db));
-    models.append(new CultureCycleDao(this, db));
-    models.append(new EventDao(this, db));
-    models.append(new EventDao(this, db));
-    models.append(new HarvestDao(this, db));
-    models.append(new OperationDao(this, db));
-    models.append(new ProductDao(this, db));
-    models.append(new ProductUsageDao(this, db));
-    models.append(new ToolDao(this, db));
-    models.append(new ToolUsageDao(this, db));
+    daoFactory = new DaoFactory(this, db);
 }
 
-BddService::~BddService()
+DbService::~DbService()
 {
     db.close();
 }
 
-void BddService::createSchema()
+void DbService::createSchema()
 {
     qDebug() << "Create a new schema";
 
@@ -158,7 +147,7 @@ void BddService::createSchema()
     ");"));
 }
 
-void BddService::createData()
+void DbService::createData()
 {
     qDebug() << "Create data";
 

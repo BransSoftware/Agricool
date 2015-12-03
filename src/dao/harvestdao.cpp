@@ -1,6 +1,6 @@
 #include "harvestdao.h"
 
-HarvestDao::HarvestDao(QObject * parent, QSqlDatabase db)
+HarvestDao::HarvestDao(DbService * parent, QSqlDatabase db)
     : DaoBase<Harvest>(parent, db)
 {
     setTable("Harvest");

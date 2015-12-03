@@ -6,7 +6,7 @@
 class HarvestDao : public DaoBase<Harvest>
 {
 public:
-    HarvestDao(QObject * parent, QSqlDatabase db);
+    HarvestDao(DbService * parent, QSqlDatabase db);
     Harvest* fillFromDb(QSqlRecord record);
 };
 

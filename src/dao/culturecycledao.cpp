@@ -1,6 +1,6 @@
 #include "src/dao/culturecycledao.h"
 
-CultureCycleDao::CultureCycleDao(QObject * parent, QSqlDatabase db)
+CultureCycleDao::CultureCycleDao(DbService * parent, QSqlDatabase db)
     : DaoBase<CultureCycle>(parent, db)
 {
     setTable("CultureCycle");
@@ -8,7 +8,7 @@ CultureCycleDao::CultureCycleDao(QObject * parent, QSqlDatabase db)
 
 CultureCycle* CultureCycleDao::fillFromDb(QSqlRecord record)
 {
-    Plot* plot = bddService->getDao<PlotDao>()->get(record.value(1).toInt());
+    Plot* plot = dbService->getDao<PlotDao>()->get(record.value(1).toInt());
 
     QDateTime startDate;
     startDate.setTime_t(record.value(4).toUInt());

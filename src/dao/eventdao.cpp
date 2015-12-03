@@ -1,6 +1,6 @@
 #include "eventdao.h"
 
-EventDao::EventDao(QObject * parent, QSqlDatabase db)
+EventDao::EventDao(DbService * parent, QSqlDatabase db)
     : DaoBase<Event>(parent, db)
 {
     setTable("Event");

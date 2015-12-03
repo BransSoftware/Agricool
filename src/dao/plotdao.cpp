@@ -1,6 +1,6 @@
 #include "src/dao/plotdao.h"
 
-PlotDao::PlotDao(QObject *parent, QSqlDatabase db)
+PlotDao::PlotDao(DbService *parent, QSqlDatabase db)
     : DaoBase<Plot>(parent, db)
 {
     setTable("Plot");

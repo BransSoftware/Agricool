@@ -1,6 +1,6 @@
 #include "productdao.h"
 
-ProductDao::ProductDao(QObject * parent, QSqlDatabase db)
+ProductDao::ProductDao(DbService * parent, QSqlDatabase db)
     : DaoBase<Product>(parent, db)
 {
     setTable("Product");

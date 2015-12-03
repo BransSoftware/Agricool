@@ -6,7 +6,7 @@
 class ProductDao : public DaoBase<Product>
 {
 public:
-    ProductDao(QObject * parent, QSqlDatabase db);
+    ProductDao(DbService * parent, QSqlDatabase db);
     Product* fillFromDb(QSqlRecord record);
 };
 

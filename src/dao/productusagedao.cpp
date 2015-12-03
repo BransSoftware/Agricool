@@ -1,6 +1,6 @@
 #include "productusagedao.h"
 
-ProductUsageDao::ProductUsageDao(QObject * parent, QSqlDatabase db)
+ProductUsageDao::ProductUsageDao(DbService * parent, QSqlDatabase db)
     : DaoBase<ProductUsage>(parent, db)
 {
     setTable("ProductUsage");

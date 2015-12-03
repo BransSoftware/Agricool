@@ -8,7 +8,7 @@ class CultureCycleDao : public DaoBase<CultureCycle>
     Q_OBJECT
 
 public:
-    CultureCycleDao(QObject * parent, QSqlDatabase db);
+    CultureCycleDao(DbService * parent, QSqlDatabase db);
     CultureCycle* fillFromDb(QSqlRecord record);
 };
 

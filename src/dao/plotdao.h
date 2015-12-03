@@ -17,7 +17,7 @@ class PlotDao : public DaoBase<Plot>
     Q_OBJECT
 
 public:
-    PlotDao(QObject * parent, QSqlDatabase db);
+    PlotDao(DbService * parent, QSqlDatabase db);
     Plot* fillFromDb(QSqlRecord record);
 };
 

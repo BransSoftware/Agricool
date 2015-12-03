@@ -6,7 +6,7 @@
 class OperationDao : public DaoBase<Operation>
 {
 public:
-    OperationDao(QObject * parent, QSqlDatabase db);
+    OperationDao(DbService * parent, QSqlDatabase db);
     Operation* fillFromDb(QSqlRecord record);
 };
 

@@ -6,7 +6,7 @@
 class ToolUsageDao : public DaoBase<ToolUsage>
 {
 public:
-    ToolUsageDao(QObject * parent, QSqlDatabase db);
+    ToolUsageDao(DbService * parent, QSqlDatabase db);
     ToolUsage* fillFromDb(QSqlRecord record);
 };
 

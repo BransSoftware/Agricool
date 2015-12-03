@@ -7,17 +7,17 @@
 #include <QToolBar>
 #include <QScrollArea>
 #include "src/ui/bannerwidget.h"
-#include "src/service/bddService.h"
+#include "src/service/dbService.h"
 
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    MainWindow(BddService *bddService, QWidget *parent = 0);
+    MainWindow(DbService *dbService, QWidget *parent = 0);
     ~MainWindow();
 
-        void testAnimation();
+    void testAnimation();
 
 private:
     QMenuBar* mBar;

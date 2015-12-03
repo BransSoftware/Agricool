@@ -2,13 +2,13 @@
 #define DAOBASE_H
 
 #include <QtSql/QtSql>
-#include "src/service/bddService.h"
+#include "src/service/dbService.h"
 
 template <typename T>
 class DaoBase : public QSqlTableModel
 {
 public:
-    DaoBase(QObject * parent, QSqlDatabase db);
+    DaoBase(DbService * parent, QSqlDatabase db);
 
     QList<T*> getAll();
     T* get(int id);
@@ -19,14 +19,14 @@ public:
 protected:
     virtual T* fillFromDb(QSqlRecord record) = 0;
 
-    BddService* bddService;
+    DbService* dbService;
 };
 
 template <typename T>
-DaoBase<T>::DaoBase(QObject * parent, QSqlDatabase db)
+DaoBase<T>::DaoBase(DbService * parent, QSqlDatabase db)
     : QSqlTableModel(parent, db)
 {
-    bddService = dynamic_cast<BddService*>(parent);
+    dbService = parent;
     setEditStrategy(QSqlTableModel::OnRowChange);
 }
 
