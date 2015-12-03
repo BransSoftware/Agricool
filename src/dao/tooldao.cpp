@@ -6,13 +6,22 @@ ToolDao::ToolDao(DbService * parent, QSqlDatabase db)
     setTable("Tool");
 }
 
-Tool* ToolDao::fillFromDb(QSqlRecord record)
+Tool* ToolDao::createFromDb(QSqlRecord record)
 {
-    /*return new Tool(record.value(0).toInt(), // id
+    return new Tool(record.value(0).toInt(), // id
         record.value(1).toString(), // name
         record.value(2).toInt(), // cost per hour
         static_cast<ToolType>(record.value(3).toInt()),
         this
-    );*/
-    return NULL;
+    );
+}
+
+QString ToolDao::exportToDb(Tool* model, QHash<QString, QString> &fields)
+{
+    fields["toolID"] = QString::number(model->getToolID());
+    fields["toolName"] = model->getToolName();
+    fields["costPerHour"] = QString::number(model->getCostPerHour());
+    fields["toolType"] = QString::number(static_cast<int>(model->getType()));
+
+    return "toolID";
 }

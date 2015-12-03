@@ -6,9 +6,9 @@ HarvestDao::HarvestDao(DbService * parent, QSqlDatabase db)
     setTable("Harvest");
 }
 
-Harvest* HarvestDao::fillFromDb(QSqlRecord record)
+Harvest* HarvestDao::createFromDb(QSqlRecord record)
 {
-    /*CultureCycle* cultureCycle = dbService->getDao<CultureCycleDao>()->get(record.value(1).toInt());
+    CultureCycle* cultureCycle = dbService->getDao<CultureCycleDao>()->get(record.value(1).toInt());
     
     return new Harvest(record.value(0).toInt(), // id
         cultureCycle, // culture cycle
@@ -17,6 +17,18 @@ Harvest* HarvestDao::fillFromDb(QSqlRecord record)
         record.value(4).toInt(), // income per quantity unit
         static_cast<QuantityUnit>(record.value(5).toInt()), // quantity unit
         record.value(6).toString() // comment
-    );*/
-    return NULL;
+    );
+}
+
+QString HarvestDao::exportToDb(Harvest* model, QHash<QString, QString> &fields)
+{
+    fields["harvestID"] = QString::number(model->getHarvestID());
+    fields["cycleID"] = QString::number(model->getCycle()->getCycleID());
+    fields["harvestProduct"] = model->getPlantName();
+    fields["harvestQuantity"] = QString::number(model->getQuantity());
+    fields["incomePerQuantityUnit"] = QString::number(model->getIncomePerQuantityUnit());
+    fields["quantityUnit"] = QString::number(static_cast<int>(model->getQuantityUnit()));
+    fields["qualityComment"] = model->getQualityComment();
+
+    return "harvestID";
 }

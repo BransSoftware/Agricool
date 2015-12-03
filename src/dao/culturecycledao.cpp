@@ -6,7 +6,7 @@ CultureCycleDao::CultureCycleDao(DbService * parent, QSqlDatabase db)
     setTable("CultureCycle");
 }
 
-CultureCycle* CultureCycleDao::fillFromDb(QSqlRecord record)
+CultureCycle* CultureCycleDao::createFromDb(QSqlRecord record)
 {
     Plot* plot = dbService->getDao<PlotDao>()->get(record.value(1).toInt());
 
@@ -28,4 +28,20 @@ CultureCycle* CultureCycleDao::fillFromDb(QSqlRecord record)
         record.value(7).toDouble(), // estimated cost
         record.value(8).toDouble() // estimated income
       );
+}
+
+QString CultureCycleDao::exportToDb(CultureCycle* model, QHash<QString, QString> &fields)
+{
+    fields["cycleID"] = QString::number(model->getCycleID());
+    fields["plotID"] = QString::number(model->getCultivatedPlot()->getPlotID());
+    fields["name"] = model->getCycleName();
+    fields["area"] = QString::number(model->getActualCultivatedArea());
+    fields["startDate"] = QString::number(model->getStartDate().toTime_t());
+    fields["endDate"] = QString::number(model->getEndDate().toTime_t());
+    fields["isComplete"] = QString::number(model->getIsComplete());
+    fields["estimatedCost"] = QString::number(model->getEstimatedCost());
+    fields["estimatedIncome"] = QString::number(model->getEstimatedIncome());
+    fields["openComment"] = model->getComment();
+
+    return "cycleID";
 }

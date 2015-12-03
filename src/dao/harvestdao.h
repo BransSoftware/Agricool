@@ -7,7 +7,8 @@ class HarvestDao : public DaoBase<Harvest>
 {
 public:
     HarvestDao(DbService * parent, QSqlDatabase db);
-    Harvest* fillFromDb(QSqlRecord record);
+    Harvest* createFromDb(QSqlRecord record);
+    QString exportToDb(Harvest* model, QHash<QString, QString> &fields);
 };
 
 #endif // HARVESTDAO_H

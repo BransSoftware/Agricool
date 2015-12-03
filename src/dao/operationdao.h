@@ -7,7 +7,8 @@ class OperationDao : public DaoBase<Operation>
 {
 public:
     OperationDao(DbService * parent, QSqlDatabase db);
-    Operation* fillFromDb(QSqlRecord record);
+    Operation* createFromDb(QSqlRecord record);
+    QString exportToDb(Operation* model, QHash<QString, QString> &fields);
 };
 
 #endif // OPERATIONDAO_H

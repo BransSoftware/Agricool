@@ -7,7 +7,8 @@ class EventDao : public DaoBase<Event>
 {
 public:
     EventDao(DbService * parent, QSqlDatabase db);
-    Event* fillFromDb(QSqlRecord record);
+    Event* createFromDb(QSqlRecord record);
+    QString exportToDb(Event* model, QHash<QString, QString> &fields);
 };
 
 #endif // EVENTDAO_H

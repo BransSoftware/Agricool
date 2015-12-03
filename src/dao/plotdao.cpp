@@ -6,7 +6,7 @@ PlotDao::PlotDao(DbService *parent, QSqlDatabase db)
     setTable("Plot");
 }
 
-Plot* PlotDao::fillFromDb(QSqlRecord record)
+Plot* PlotDao::createFromDb(QSqlRecord record)
 {
     return new Plot(record.value(0).toInt(), // id
         record.value(1).toString(), // name
@@ -20,4 +20,27 @@ Plot* PlotDao::fillFromDb(QSqlRecord record)
         static_cast<SubjectiveFrequency>(record.value(9).toInt()), // animalDamageRisks
         static_cast<SubjectiveFrequency>(record.value(10).toInt()), // climateDamageRisks
         this);
+}
+
+QString PlotDao::exportToDb(Plot* model, QHash<QString, QString> &fields)
+{
+    fields["plotID"] = QString::number(model->getPlotID());
+    if (!model->getPlotName().isEmpty())
+    {
+        fields["name"] = "'" + model->getPlotName() + "'";
+    }
+    fields["size"] = QString::number(model->getSize());
+    fields["isOwned"] = QString::number(model->getIsOwned());
+    fields["yearlyRent"] = QString::number(model->getYearlyRent());
+    if (!model->getComment().isEmpty())
+    {
+        fields["comment"] ="'" +  model->getComment() + "'";
+    }
+    fields["soilQuality"] = QString::number(static_cast<int>(model->getSoilQuality()));
+    fields["waterDrainage"] = QString::number(static_cast<int>(model->getWaterDrainage()));
+    fields["rocksQuantity"] = QString::number(static_cast<int>(model->getRocksQuantity()));
+    fields["animalDamageRisks"] = QString::number(static_cast<int>(model->getAnimalDamageRisks()));
+    fields["climateDamageRisks"] = QString::number(static_cast<int>(model->getClimateDamageRisks()));
+
+    return "plotID";
 }

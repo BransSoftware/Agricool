@@ -9,7 +9,8 @@ class CultureCycleDao : public DaoBase<CultureCycle>
 
 public:
     CultureCycleDao(DbService * parent, QSqlDatabase db);
-    CultureCycle* fillFromDb(QSqlRecord record);
+    CultureCycle* createFromDb(QSqlRecord record);
+    QString exportToDb(CultureCycle* model, QHash<QString, QString> &fields);
 };
 
 #endif // CULTURECYCLEDAO_H

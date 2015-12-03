@@ -7,7 +7,8 @@ class ToolUsageDao : public DaoBase<ToolUsage>
 {
 public:
     ToolUsageDao(DbService * parent, QSqlDatabase db);
-    ToolUsage* fillFromDb(QSqlRecord record);
+    ToolUsage* createFromDb(QSqlRecord record);
+    QString exportToDb(ToolUsage* model, QHash<QString, QString> &fields);
 };
 
 #endif // TOOLUSAGEDAO_H

@@ -6,15 +6,25 @@ ProductUsageDao::ProductUsageDao(DbService * parent, QSqlDatabase db)
     setTable("ProductUsage");
 }
 
-ProductUsage* ProductUsageDao::fillFromDb(QSqlRecord record)
+ProductUsage* ProductUsageDao::createFromDb(QSqlRecord record)
 {
-    /*Operation* operation = dbService->getDao<OperationDao>()->get(record.value(1).toInt());
+    Operation* operation = dbService->getDao<OperationDao>()->get(record.value(1).toInt());
     Product* product = dbService->getDao<ProductDao>()->get(record.value(2).toInt());
     
     return new ProductUsage(record.value(0).toInt(), // id
         operation, // operation
         product, // product
         record.value(3).toInt() // quantity used
-    );*/
-    return NULL;
+    );
+}
+
+QString ProductUsageDao::exportToDb(ProductUsage* model, QHash<QString, QString> &fields)
+{
+    fields["productUsageID"] = QString::number(model->getProductUsageID());
+    fields["operationID"] = QString::number(model->getOperation()->getOperationID());
+    fields["productID"] = QString::number(model->getProductUsed()->getProductID());
+    fields["productQuantities"] = QString::number(model->getQuantityUsed());
+    //fields["productUsageDate"] = model->get();
+
+    return "productUsageID";
 }

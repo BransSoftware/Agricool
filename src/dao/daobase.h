@@ -12,12 +12,13 @@ public:
 
     QList<T*> getAll();
     T* get(int id);
-    void add(T model);
-    void update(T model);
+    void add(T* model);
+    void update(T* model);
     void remove(int id);
     void removeAll();
 protected:
-    virtual T* fillFromDb(QSqlRecord record) = 0;
+    virtual T* createFromDb(QSqlRecord record) = 0;
+    virtual QString exportToDb(T* model, QHash<QString, QString> &fields) = 0;
 
     DbService* dbService;
 };
@@ -38,7 +39,7 @@ QList<T*> DaoBase<T>::getAll()
 
     for(int i=0; i < rowCount(); i++)
     {
-        models.append(fillFromDb(record(i)));
+        models.append(createFromDb(record(i)));
     }
 
     return models;
@@ -51,21 +52,69 @@ T* DaoBase<T>::get(int id)
 
     if (query().first())
     {
-        return fillFromDb(query().record());
+        return createFromDb(query().record());
     }
     return NULL;
 }
 
 template <typename T>
-void DaoBase<T>::add(T model)
+void DaoBase<T>::add(T* model)
 {
+    QString queryInsert = "INSERT INTO " + tableName() + " (";
+    QHash<QString, QString> fields;
+    QString primaryKey = exportToDb(model, fields);
 
+    fields.remove(primaryKey);
+
+    for(QString key : fields.keys())
+    {
+        if (!fields[key].isEmpty())
+        {
+            queryInsert.append(key).append(",");
+        }
+    }
+    queryInsert.remove(queryInsert.size() - 1, 1);
+    queryInsert.append(") VALUES(");
+
+    for(QString value : fields)
+    {
+        if (!value.isEmpty())
+        {
+            queryInsert.append(value).append(",");
+        }
+    }
+    queryInsert.remove(queryInsert.size() - 1, 1);
+    queryInsert.append(")");
+
+    // Execute query to insert a new row
+    query().exec(queryInsert);
 }
 
 template <typename T>
-void DaoBase<T>::update(T model)
+void DaoBase<T>::update(T* model)
 {
+    QString queryUpdate = "UPDATE " + tableName() + " SET ";
 
+    QHash<QString, QString> fields;
+    QString primaryKey = exportToDb(model, fields);
+
+    int model_id = fields[primaryKey].toInt();
+
+    fields.remove(primaryKey);
+
+    for(QString key : fields.keys())
+    {
+        if (!fields[key].isEmpty())
+        {
+            queryUpdate.append(key).append("=").append(fields[key]).append(",");
+        }
+    }
+
+    queryUpdate.remove(queryUpdate.size() - 1, 1);
+    queryUpdate.append(" WHERE ").append(primaryKey).append("=").append(QString::number(model_id));
+
+    // Execute query to update the given row
+    query().exec(queryUpdate);
 }
 
 template <typename T>
