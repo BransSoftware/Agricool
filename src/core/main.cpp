@@ -1,4 +1,4 @@
-#include "src/service/bddService.h"
+#include "src/service/dbService.h"
 #include "src/ui/mainwindow.h"
 #include <QApplication>
 
@@ -8,10 +8,10 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
 
     // Init service
-    BddService bddService;
+    DbService dbservice;
 
     // Init UI
-    MainWindow w(&bddService);
+    MainWindow w(&dbservice);
     w.show();
     //w.testAnimation();
 

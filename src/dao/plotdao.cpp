@@ -1,77 +1,46 @@
 #include "src/dao/plotdao.h"
 
-PlotDao::PlotDao(QObject *parent, QSqlDatabase db)
-    : QSqlTableModel(parent, db)
+PlotDao::PlotDao(DbService *parent, QSqlDatabase db)
+    : DaoBase<Plot>(parent, db)
 {
     setTable("Plot");
-    setEditStrategy(QSqlTableModel::OnRowChange);
-    QSqlTableModel::select();
 }
 
-QList<Plot*> PlotDao::getAll()
+Plot* PlotDao::createFromDb(QSqlRecord record)
 {
-    QList<Plot*> plots;
-    QSqlTableModel::select();
+    return new Plot(record.value(0).toInt(), // id
+        record.value(1).toString(), // name
+        record.value(2).toDouble(), // surface
+        record.value(3).toBool(), // isOwned
+        record.value(4).toInt(), // rent
+        record.value(5).toString(), // comment
+        static_cast<SubjectiveQuality>(record.value(6).toInt()), // soil quality
+        static_cast<SubjectiveQuality>(record.value(7).toInt()), // waterDrainage
+        static_cast<SubjectiveFrequency>(record.value(8).toInt()), // rocksQuantity
+        static_cast<SubjectiveFrequency>(record.value(9).toInt()), // animalDamageRisks
+        static_cast<SubjectiveFrequency>(record.value(10).toInt()), // climateDamageRisks
+        this);
+}
 
-    for(int i=0; i < rowCount(); i++)
+QString PlotDao::exportToDb(Plot* model, QHash<QString, QString> &fields)
+{
+    fields["plotID"] = QString::number(model->getPlotID());
+    if (!model->getPlotName().isEmpty())
     {
-        Plot *plot = new Plot(record(i).value(0).toInt(), // id
-                  record(i).value(1).toString(), // name
-                  record(i).value(2).toDouble(), // surface
-                  record(i).value(3).toBool(), // isOwned
-                  record(i).value(4).toInt(), // rent
-                  record(i).value(5).toString(), // comment
-                  static_cast<SubjectiveQuality>(record(i).value(6).toInt()), // soil quality
-                  static_cast<SubjectiveQuality>(record(i).value(7).toInt()), // waterDrainage
-                  static_cast<SubjectiveFrequency>(record(i).value(8).toInt()), // rocksQuantity
-                  static_cast<SubjectiveFrequency>(record(i).value(9).toInt()), // animalDamageRisks
-                  static_cast<SubjectiveFrequency>(record(i).value(10).toInt()), // climateDamageRisks
-                  this);
-        plots.append(plot);
+        fields["name"] = "'" + model->getPlotName() + "'";
     }
-
-    return plots;
-}
-
-Plot* PlotDao::get(int id)
-{
-    query().exec(QString("SELECT * FROM " + tableName() + " WHERE plotID = %1").arg(id));
-
-    if (query().first())
+    fields["size"] = QString::number(model->getSize());
+    fields["isOwned"] = QString::number(model->getIsOwned());
+    fields["yearlyRent"] = QString::number(model->getYearlyRent());
+    if (!model->getComment().isEmpty())
     {
-        return new Plot(query().value(0).toInt(), // id
-            query().value(1).toString(), // name
-            query().value(2).toDouble(), // surface
-            query().value(3).toBool(), // isOwned
-            query().value(4).toInt(), // rent
-            query().value(5).toString(), // comment
-            static_cast<SubjectiveQuality>(query().value(6).toInt()), // soil quality
-            static_cast<SubjectiveQuality>(query().value(7).toInt()), // waterDrainage
-            static_cast<SubjectiveFrequency>(query().value(8).toInt()), // rocksQuantity
-            static_cast<SubjectiveFrequency>(query().value(9).toInt()), // animalDamageRisks
-            static_cast<SubjectiveFrequency>(query().value(10).toInt()), // climateDamageRisks
-            this);
+        fields["comment"] ="'" +  model->getComment() + "'";
     }
-    return NULL;
-}
+    fields["soilQuality"] = QString::number(static_cast<int>(model->getSoilQuality()));
+    fields["waterDrainage"] = QString::number(static_cast<int>(model->getWaterDrainage()));
+    fields["rocksQuantity"] = QString::number(static_cast<int>(model->getRocksQuantity()));
+    fields["animalDamageRisks"] = QString::number(static_cast<int>(model->getAnimalDamageRisks()));
+    fields["climateDamageRisks"] = QString::number(static_cast<int>(model->getClimateDamageRisks()));
 
-void PlotDao::add(Plot plot)
-{
-
-}
-
-void PlotDao::update(Plot plot)
-{
-
-}
-
-void PlotDao::remove(int id)
-{
-    QString req = QString("DELETE FROM " + tableName() + " WHERE plotID = %1").arg(id);
-    query().exec(req);
-}
-
-void PlotDao::removeAll()
-{
-    query().exec("DELETE FROM " + tableName());
+    return "plotID";
 }

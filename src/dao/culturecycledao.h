@@ -3,22 +3,14 @@
 
 #include "src/dao/plotdao.h"
 
-class CultureCycleDao : public QSqlTableModel
+class CultureCycleDao : public DaoBase<CultureCycle>
 {
     Q_OBJECT
 
 public:
-    CultureCycleDao(QObject * parent, QSqlDatabase db);
-    QList<CultureCycle*> getAll();
-    CultureCycle* get(int id);
-    void add(CultureCycle cycle);
-    void update(CultureCycle cycle);
-    void remove(int id);
-    void removeAll();
-
-private:
-
-    BddService* bddService;
+    CultureCycleDao(DbService * parent, QSqlDatabase db);
+    CultureCycle* createFromDb(QSqlRecord record);
+    QString exportToDb(CultureCycle* model, QHash<QString, QString> &fields);
 };
 
 #endif // CULTURECYCLEDAO_H

@@ -1,19 +1,15 @@
-#ifndef BDDSERVICE_H
-#define BDDSERVICE_H
+#ifndef DAOFACTORY_H
+#define DAOFACTORY_H
 
 #include <QObject>
 #include <QtSql/QtSql>
 
-class BddService : public QObject
+class DaoFactory: public QObject
 {
     Q_OBJECT
 
-public :
-
-    BddService(QObject * parent = 0);
-    ~BddService();
-    void createSchema();
-    void createData();
+public:
+    DaoFactory(QObject * parent, QSqlDatabase db);
 
     template <typename T>
     inline T* getDao()
@@ -34,4 +30,4 @@ private:
     QList<QSqlTableModel*> models;
 };
 
-#endif
+#endif // DAOFACTORY_H

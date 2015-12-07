@@ -1,8 +1,6 @@
-#include "src/service/bddService.h"
-#include "src/dao/culturecycledao.h"
-#include "src/dao/plotdao.h"
+#include "src/service/dbService.h"
 
-BddService::BddService(QObject *parent) : QObject(parent)
+DbService::DbService(QObject *parent) : QObject(parent)
 {    
     QFileInfo dbPath( QFileInfo(QCoreApplication::applicationFilePath()).absolutePath() + "/db.sqlite");
     bool createSchema = true; //!dbPath.exists();
@@ -21,16 +19,15 @@ BddService::BddService(QObject *parent) : QObject(parent)
         this->createData();
     }
 
-    models.append(new PlotDao(this, db));
-    models.append(new CultureCycleDao(this, db));
+    daoFactory = new DaoFactory(this, db);
 }
 
-BddService::~BddService()
+DbService::~DbService()
 {
     db.close();
 }
 
-void BddService::createSchema()
+void DbService::createSchema()
 {
     qDebug() << "Create a new schema";
 
@@ -60,7 +57,7 @@ void BddService::createSchema()
     "	`toolID`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,"
     "	`toolName`	TEXT NOT NULL,"
     "	`costPerHour`	REAL,"
-    "	`toolType`	TEXT"
+    "	`toolType`	INTEGER"
     ");"));
     
     // ProductUsage table
@@ -78,9 +75,9 @@ void BddService::createSchema()
     db.exec(QString("CREATE TABLE `Product` ("
     "	`productID`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,"
     "	`productName`	TEXT NOT NULL,"
-    "	`quantityUnitSymbol`	TEXT,"
+    "	`quantityUnitSymbol`	INTEGER,"
     "	`pricePerQuantityUnit`	REAL, "
-    "	`productType`	TEXT"
+    "	`productType`	INTEGER"
     ");"));
     
     // Plot table
@@ -102,6 +99,7 @@ void BddService::createSchema()
     db.exec(QString("CREATE TABLE `Operation` ("
     "	`operationID`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,"
     "	`cycleID`	INTEGER NOT NULL,"
+    "	`name`	TEXT,"
     "	`operationDate`	INTEGER,"
     "	`duration`	REAL,"
     "	`employeeWorkHourCost`	REAL,"
@@ -116,8 +114,8 @@ void BddService::createSchema()
     "	`cycleID`	INTEGER NOT NULL,"
     "	`harvestProduct`	TEXT,"
     "	`harvestQuantity`	INTEGER,"
-    "	`quantityUnitSymbol`	TEXT,"
-    "	`pricePerQuantity`	REAL,"
+    "	`incomePerQuantityUnit`	INTEGER,"
+    "	`quantityUnit`	INTEGER,"
     "	`qualityComment`	TEXT,"
     "	FOREIGN KEY(`cycleID`) REFERENCES CultureCycle"
     ");"));
@@ -150,7 +148,7 @@ void BddService::createSchema()
     ");"));
 }
 
-void BddService::createData()
+void DbService::createData()
 {
     qDebug() << "Create data";
 
