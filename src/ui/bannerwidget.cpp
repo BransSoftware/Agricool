@@ -45,26 +45,28 @@ void BannerWidget::showHideDetails(){
 
 
     if (!details1->isVisible()){
-            expand->setToolTip(tr("Hide Details"));
-            expand->setIcon(QIcon(":/resources/icons/shrink.png"));
+
+//            anim->setStartValue(40);
+//            anim->setEndValue(160);
+//            anim->setDuration(200);
+//            anim->start(QAbstractAnimation::DeleteWhenStopped);
             details1->show();
             details2->show();
             details3->show();
-            anim->setStartValue(40);
-            anim->setEndValue(160);
-            anim->setDuration(1000);
-            anim->start(QAbstractAnimation::DeleteWhenStopped);
+            expand->setToolTip(tr("Hide Details"));
+            expand->setIcon(QIcon(":/resources/icons/shrink.png"));
         }
         else{
-            expand->setToolTip(tr("Show Details"));
-            expand->setIcon(QIcon(":/resources/icons/expand.png"));
+
+//            anim->setStartValue(160);
+//            anim->setEndValue(40);
+//            anim->setDuration(200);
+//            anim->start(QAbstractAnimation::DeleteWhenStopped);
             details1->hide();
             details2->hide();
             details3->hide();
-            anim->setStartValue(160);
-            anim->setEndValue(40);
-            anim->setDuration(1000);
-            anim->start(QAbstractAnimation::DeleteWhenStopped);
+            expand->setToolTip(tr("Show Details"));
+            expand->setIcon(QIcon(":/resources/icons/expand.png"));
         }
 
 }
