@@ -4,11 +4,20 @@ CultureCycleDao::CultureCycleDao(DbService * parent, QSqlDatabase db)
     : DaoBase<CultureCycle>(parent, db)
 {
     setTable("CultureCycle");
+
 }
 
 CultureCycle* CultureCycleDao::createFromDb(QSqlRecord record)
 {
-    Plot* plot = dbService->getDao<PlotDao>()->get(record.value(1).toInt());
+    return createFromDb(record, NULL);
+}
+
+CultureCycle* CultureCycleDao::createFromDb(QSqlRecord record, Plot* plot)
+{
+    if (plot == NULL)
+    {
+        plot = dbService->getDao<PlotDao>()->get(record.value(1).toInt(), false);
+    }
 
     QDateTime startDate;
     startDate.setTime_t(record.value(4).toUInt());
@@ -50,4 +59,50 @@ QString CultureCycleDao::exportToDb(CultureCycle* model, QHash<QString, QString>
     }
 
     return "cycleID";
+}
+
+QList<CultureCycle*> CultureCycleDao::getByPlot(Plot* plot)
+{
+    QList<CultureCycle*> cultureCycles;
+    QString req = QString("SELECT * FROM " + tableName() + " WHERE plotID=:id");
+    qDebug() << "CultureCycleDao::getByPlotId: " << req;
+
+    QSqlQuery q(database());
+    q.prepare(req);
+    q.bindValue(":id", plot->getPlotID());
+    if (!q.exec())
+    {
+        qWarning() << q.lastError();
+    }
+
+    while (q.next())
+    {
+        CultureCycle* cycle = createFromDb(q.record(), plot);
+        postGet(cycle);
+        cultureCycles.append(cycle);
+    }
+
+    return cultureCycles;
+}
+
+void CultureCycleDao::postGet(CultureCycle* model)
+{
+    model->setEvents(dbService->getDao<EventDao>()->getByCultureCycle(model));
+    model->setHarvests(dbService->getDao<HarvestDao>()->getByCultureCycle(model));
+    model->setOperations(dbService->getDao<OperationDao>()->getByCultureCycle(model));
+}
+
+void CultureCycleDao::postAdd(CultureCycle* model)
+{
+
+}
+
+void CultureCycleDao::postUpdate(CultureCycle* model)
+{
+
+}
+
+void CultureCycleDao::postDelete(CultureCycle* model)
+{
+
 }

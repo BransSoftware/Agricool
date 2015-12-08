@@ -44,3 +44,21 @@ QString PlotDao::exportToDb(Plot* model, QHash<QString, QString> &fields)
 
     return "plotID";
 }
+
+void PlotDao::postGet(Plot* model)
+{
+    QList<CultureCycle*> cycles = dbService->getDao<CultureCycleDao>()->getByPlot(model);
+    model->setCultureCycles(cycles);
+}
+
+void PlotDao::postAdd(Plot* model)
+{
+}
+
+void PlotDao::postUpdate(Plot* model)
+{
+}
+
+void PlotDao::postDelete(Plot* model)
+{
+}

@@ -30,3 +30,19 @@ QString ProductDao::exportToDb(Product* model, QHash<QString, QString> &fields)
 
     return "productID";
 }
+
+void ProductDao::postGet(Product* model)
+{
+}
+
+void ProductDao::postAdd(Product* model)
+{
+}
+
+void ProductDao::postUpdate(Product* model)
+{
+}
+
+void ProductDao::postDelete(Product* model)
+{
+}

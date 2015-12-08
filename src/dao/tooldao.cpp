@@ -28,3 +28,19 @@ QString ToolDao::exportToDb(Tool* model, QHash<QString, QString> &fields)
 
     return "toolID";
 }
+
+void ToolDao::postGet(Tool* model)
+{
+}
+
+void ToolDao::postAdd(Tool* model)
+{
+}
+
+void ToolDao::postUpdate(Tool* model)
+{
+}
+
+void ToolDao::postDelete(Tool* model)
+{
+}

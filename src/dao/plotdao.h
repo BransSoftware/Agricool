@@ -18,8 +18,13 @@ class PlotDao : public DaoBase<Plot>
 
 public:
     PlotDao(DbService * parent, QSqlDatabase db);
+protected:
     Plot* createFromDb(QSqlRecord record);
     QString exportToDb(Plot* model, QHash<QString, QString> &fields);
+    void postGet(Plot* model);
+    void postAdd(Plot* model);
+    void postUpdate(Plot* model);
+    void postDelete(Plot* model);
 };
 
 #endif // PLOTDAO_H
