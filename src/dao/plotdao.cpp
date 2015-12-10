@@ -51,6 +51,43 @@ void PlotDao::postGet(Plot* model)
     model->setCultureCycles(cycles);
 }
 
+QList<Plot*> PlotDao::getAll()
+{
+    return getAll(true);
+}
+
+QList<Plot*> PlotDao::getAll(bool isRecursive)
+{
+    QList<Plot*> models = DaoBase::getAll();
+
+    if (isRecursive)
+    {
+        for(Plot* plot : models)
+        {
+            postGet(plot);
+        }
+    }
+
+    return models;
+}
+
+Plot* PlotDao::get(int id)
+{
+    return get(id, true);
+}
+
+Plot* PlotDao::get(int id, bool isRecursive)
+{
+    Plot* model = DaoBase::get(id);
+
+    if (isRecursive)
+    {
+        postGet(model);
+    }
+
+    return model;
+}
+
 void PlotDao::postAdd(Plot* model)
 {
 }

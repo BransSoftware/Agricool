@@ -61,25 +61,8 @@ QList<Event*> EventDao::getByCultureCycle(CultureCycle* cycle)
     while (q.next())
     {
         Event* event = createFromDb(q.record(), cycle);
-        postGet(event);
         events.append(event);
     }
 
     return events;
-}
-
-void EventDao::postGet(Event* model)
-{
-}
-
-void EventDao::postAdd(Event* model)
-{
-}
-
-void EventDao::postUpdate(Event* model)
-{
-}
-
-void EventDao::postDelete(Event* model)
-{
 }

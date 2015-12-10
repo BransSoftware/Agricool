@@ -12,10 +12,6 @@ public:
 protected:
     ToolUsage* createFromDb(QSqlRecord record);
     QString exportToDb(ToolUsage* model, QHash<QString, QString> &fields);
-    void postGet(ToolUsage* model);
-    void postAdd(ToolUsage* model);
-    void postUpdate(ToolUsage* model);
-    void postDelete(ToolUsage* model);
 
 private:
     ToolUsage* createFromDb(QSqlRecord record, Operation* operation);

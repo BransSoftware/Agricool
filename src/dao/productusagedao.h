@@ -12,10 +12,6 @@ public:
 protected:
     ProductUsage* createFromDb(QSqlRecord record);
     QString exportToDb(ProductUsage* model, QHash<QString, QString> &fields);
-    void postGet(ProductUsage* model);
-    void postAdd(ProductUsage* model);
-    void postUpdate(ProductUsage* model);
-    void postDelete(ProductUsage* model);
 
 private:
     ProductUsage* createFromDb(QSqlRecord record, Operation* operation);

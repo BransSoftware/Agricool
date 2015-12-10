@@ -18,6 +18,13 @@ class PlotDao : public DaoBase<Plot>
 
 public:
     PlotDao(DbService * parent, QSqlDatabase db);
+
+    QList<Plot*> getAll(bool isRecursive);
+    virtual QList<Plot*> getAll();
+
+    Plot* get(int id, bool isRecursive);
+    virtual Plot* get(int id);
+
 protected:
     Plot* createFromDb(QSqlRecord record);
     QString exportToDb(Plot* model, QHash<QString, QString> &fields);

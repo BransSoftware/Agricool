@@ -8,6 +8,13 @@ class OperationDao : public DaoBase<Operation>
 
 public:
     OperationDao(DbService * parent, QSqlDatabase db);
+
+    QList<Operation*> getAll(bool isRecursive);
+    virtual QList<Operation*> getAll();
+
+    Operation* get(int id, bool isRecursive);
+    virtual Operation* get(int id);
+
     QList<Operation*> getByCultureCycle(CultureCycle* cycle);
 
 protected:

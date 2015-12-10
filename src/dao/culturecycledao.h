@@ -9,17 +9,22 @@ class CultureCycleDao : public DaoBase<CultureCycle>
 
 public:
     CultureCycleDao(DbService * parent, QSqlDatabase db);
+
+    QList<CultureCycle*> getAll(bool isRecursive);
+    virtual QList<CultureCycle*> getAll();
+
+    CultureCycle* get(int id, bool isRecursive);
+    virtual CultureCycle* get(int id);
+
     QList<CultureCycle*> getByPlot(Plot* plot);
 
 protected:
     CultureCycle* createFromDb(QSqlRecord record);
     QString exportToDb(CultureCycle* model, QHash<QString, QString> &fields);
-    void postGet(CultureCycle* model);
-    void postAdd(CultureCycle* model);
-    void postUpdate(CultureCycle* model);
-    void postDelete(CultureCycle* model);
+
 private:
     CultureCycle* createFromDb(QSqlRecord record, Plot* plot);
+    void postGet(CultureCycle* model);
 };
 
 #endif // CULTURECYCLEDAO_H

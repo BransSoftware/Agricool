@@ -54,26 +54,8 @@ QList<ToolUsage*> ToolUsageDao::getToolUsageByOperation(Operation* operation)
 
     while (q.next())
     {
-        ToolUsage* toolUsage = createFromDb(q.record(), operation);
-        postGet(toolUsage);
-        toolUsages.append(toolUsage);
+        toolUsages.append(createFromDb(q.record(), operation));
     }
 
     return toolUsages;
-}
-
-void ToolUsageDao::postGet(ToolUsage* model)
-{
-}
-
-void ToolUsageDao::postAdd(ToolUsage* model)
-{
-}
-
-void ToolUsageDao::postUpdate(ToolUsage* model)
-{
-}
-
-void ToolUsageDao::postDelete(ToolUsage* model)
-{
 }

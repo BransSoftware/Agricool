@@ -76,6 +76,43 @@ QList<Operation*> OperationDao::getByCultureCycle(CultureCycle* cycle)
     return operations;
 }
 
+QList<Operation*> OperationDao::getAll()
+{
+    return getAll(true);
+}
+
+QList<Operation*> OperationDao::getAll(bool isRecursive)
+{
+    QList<Operation*> models = DaoBase::getAll();
+
+    if (isRecursive)
+    {
+        for(Operation* model : models)
+        {
+            postGet(model);
+        }
+    }
+
+    return models;
+}
+
+Operation* OperationDao::get(int id)
+{
+    return get(id, true);
+}
+
+Operation* OperationDao::get(int id, bool isRecursive)
+{
+    Operation* model = DaoBase::get(id);
+
+    if (isRecursive)
+    {
+        postGet(model);
+    }
+
+    return model;
+}
+
 void OperationDao::postGet(Operation* model)
 {
     model->setProductUsed(dbService->getDao<ProductUsageDao>()->getProductUsageByOperation(model));

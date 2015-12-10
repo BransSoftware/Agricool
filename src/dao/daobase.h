@@ -10,20 +10,16 @@ class DaoBase : public QSqlTableModel
 public:
     DaoBase(DbService * parent, QSqlDatabase db);
 
-    QList<T*> getAll(bool isRecursive = true);
-    T* get(int id, bool isRecursive = true);
-    void add(T* model);
-    void update(T* model);
-    void remove(int id);
-    void removeAll();
+    virtual QList<T*> getAll();
+    virtual T* get(int id);
+    virtual void add(T* model);
+    virtual void update(T* model);
+    virtual void remove(int id);
+    virtual void removeAll();
     int count();
 protected:
     virtual T* createFromDb(QSqlRecord record) = 0;
     virtual QString exportToDb(T* model, QHash<QString, QString> &fields) = 0;
-    virtual void postGet(T* model) = 0;
-    virtual void postAdd(T* model) = 0;
-    virtual void postUpdate(T* model) = 0;
-    virtual void postDelete(T* model) = 0;
 
     DbService* dbService;
 };
@@ -37,7 +33,7 @@ DaoBase<T>::DaoBase(DbService * parent, QSqlDatabase db)
 }
 
 template <typename T>
-QList<T*> DaoBase<T>::getAll(bool isRecursive = true)
+QList<T*> DaoBase<T>::getAll()
 {
     QList<T*> models;
     QSqlTableModel::select();
@@ -47,18 +43,11 @@ QList<T*> DaoBase<T>::getAll(bool isRecursive = true)
         models.append(createFromDb(record(i)));
     }
 
-    if (isRecursive)
-    {
-        for(T* model : models)
-        {
-            postGet(model);
-        }
-    }
     return models;
 }
 
 template <typename T>
-T* DaoBase<T>::get(int id, bool isRecursive = true)
+T* DaoBase<T>::get(int id)
 {
     QString req = QString("SELECT * FROM '" + tableName() + "' WHERE " + primaryKey().fieldName(0) + " = :id");
     qDebug() << "get: " << req;
@@ -74,11 +63,6 @@ T* DaoBase<T>::get(int id, bool isRecursive = true)
     if (q.first())
     {
         T* model = createFromDb(q.record());
-        if (isRecursive)
-        {
-            postGet(model);
-        }
-
         return model;
     }
     return NULL;

@@ -64,25 +64,8 @@ QList<Harvest*> HarvestDao::getByCultureCycle(CultureCycle* cycle)
     while (q.next())
     {
         Harvest* harvest = createFromDb(q.record(), cycle);
-        postGet(harvest);
         harvests.append(harvest);
     }
 
     return harvests;
-}
-
-void HarvestDao::postGet(Harvest* model)
-{
-}
-
-void HarvestDao::postAdd(Harvest* model)
-{
-}
-
-void HarvestDao::postUpdate(Harvest* model)
-{
-}
-
-void HarvestDao::postDelete(Harvest* model)
-{
 }

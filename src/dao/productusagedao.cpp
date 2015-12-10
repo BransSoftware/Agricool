@@ -55,25 +55,8 @@ QList<ProductUsage*> ProductUsageDao::getProductUsageByOperation(Operation* oper
     while (q.next())
     {
         ProductUsage* productUsage = createFromDb(q.record(), operation);
-        postGet(productUsage);
         productUsages.append(productUsage);
     }
 
     return productUsages;
-}
-
-void ProductUsageDao::postGet(ProductUsage* model)
-{
-}
-
-void ProductUsageDao::postAdd(ProductUsage* model)
-{
-}
-
-void ProductUsageDao::postUpdate(ProductUsage* model)
-{
-}
-
-void ProductUsageDao::postDelete(ProductUsage* model)
-{
 }

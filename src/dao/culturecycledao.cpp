@@ -85,24 +85,44 @@ QList<CultureCycle*> CultureCycleDao::getByPlot(Plot* plot)
     return cultureCycles;
 }
 
+QList<CultureCycle*> CultureCycleDao::getAll()
+{
+    return getAll(true);
+}
+
+QList<CultureCycle*> CultureCycleDao::getAll(bool isRecursive)
+{
+    QList<CultureCycle*> models = DaoBase::getAll();
+    if (isRecursive)
+    {
+        for (CultureCycle* model : models)
+        {
+            postGet(model);
+        }
+    }
+    return models;
+}
+
+CultureCycle* CultureCycleDao::get(int id)
+{
+    return get(id, true);
+}
+
+CultureCycle* CultureCycleDao::get(int id, bool isRecursive)
+{
+    CultureCycle* model = DaoBase::get(id);
+
+    if (isRecursive)
+    {
+        postGet(model);
+    }
+
+    return model;
+}
+
 void CultureCycleDao::postGet(CultureCycle* model)
 {
     model->setEvents(dbService->getDao<EventDao>()->getByCultureCycle(model));
     model->setHarvests(dbService->getDao<HarvestDao>()->getByCultureCycle(model));
     model->setOperations(dbService->getDao<OperationDao>()->getByCultureCycle(model));
-}
-
-void CultureCycleDao::postAdd(CultureCycle* model)
-{
-
-}
-
-void CultureCycleDao::postUpdate(CultureCycle* model)
-{
-
-}
-
-void CultureCycleDao::postDelete(CultureCycle* model)
-{
-
 }
