@@ -18,6 +18,9 @@ public:
 
     QList<CultureCycle*> getByPlot(Plot* plot);
 
+    virtual void remove(int id);
+    virtual void removeAll();
+
 protected:
     CultureCycle* createFromDb(QSqlRecord record);
     QString exportToDb(CultureCycle* model, QHash<QString, QString> &fields);
@@ -25,6 +28,7 @@ protected:
 private:
     CultureCycle* createFromDb(QSqlRecord record, Plot* plot);
     void postGet(CultureCycle* model);
+    void postRemove(CultureCycle* model);
 };
 
 #endif // CULTURECYCLEDAO_H

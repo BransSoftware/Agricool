@@ -17,13 +17,16 @@ public:
 
     QList<Operation*> getByCultureCycle(CultureCycle* cycle);
 
+    virtual void remove(int id);
+    virtual void removeAll();
+
 protected:
     Operation* createFromDb(QSqlRecord record);
     QString exportToDb(Operation* model, QHash<QString, QString> &fields);
     void postGet(Operation* model);
     void postAdd(Operation* model);
     void postUpdate(Operation* model);
-    void postDelete(Operation* model);
+    void postRemove(Operation* model);
 private:
     Operation* createFromDb(QSqlRecord record, CultureCycle* cycle);
 };

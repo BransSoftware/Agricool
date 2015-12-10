@@ -113,6 +113,26 @@ Operation* OperationDao::get(int id, bool isRecursive)
     return model;
 }
 
+void OperationDao::remove(int id)
+{
+    Operation* operation = get(id);
+
+    postRemove(operation);
+    DaoBase::remove(operation->getOperationID());
+}
+
+void OperationDao::removeAll()
+{
+    QList<Operation*> operations = getAll();
+
+    for(Operation* operation : operations)
+    {
+        postRemove(operation);
+    }
+
+    DaoBase::removeAll();
+}
+
 void OperationDao::postGet(Operation* model)
 {
     model->setProductUsed(dbService->getDao<ProductUsageDao>()->getProductUsageByOperation(model));
@@ -127,6 +147,14 @@ void OperationDao::postUpdate(Operation* model)
 {
 }
 
-void OperationDao::postDelete(Operation* model)
+void OperationDao::postRemove(Operation* model)
 {
+    for (ProductUsage* productUsed : model->getProductUsed())
+    {
+        dbService->getDao<ProductUsageDao>()->remove(productUsed->getProductUsageID());
+    }
+    for (ToolUsage* toolUsed : model->getToolUsed())
+    {
+        dbService->getDao<ToolUsageDao>()->remove(toolUsed->getToolUsageID());
+    }
 }

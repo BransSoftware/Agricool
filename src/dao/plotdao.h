@@ -25,13 +25,16 @@ public:
     Plot* get(int id, bool isRecursive);
     virtual Plot* get(int id);
 
+    virtual void remove(int id);
+    virtual void removeAll();
+
 protected:
     Plot* createFromDb(QSqlRecord record);
     QString exportToDb(Plot* model, QHash<QString, QString> &fields);
     void postGet(Plot* model);
     void postAdd(Plot* model);
     void postUpdate(Plot* model);
-    void postDelete(Plot* model);
+    void postRemove(Plot* model);
 };
 
 #endif // PLOTDAO_H
