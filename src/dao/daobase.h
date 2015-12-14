@@ -50,7 +50,6 @@ template <typename T>
 T* DaoBase<T>::get(int id)
 {
     QString req = QString("SELECT * FROM '" + tableName() + "' WHERE " + primaryKey().fieldName(0) + " = :id");
-    qDebug() << "get: " << req;
 
     QSqlQuery q(database());
     q.prepare(req);

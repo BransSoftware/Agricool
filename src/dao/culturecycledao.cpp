@@ -65,7 +65,7 @@ QList<CultureCycle*> CultureCycleDao::getByPlot(Plot* plot)
 {
     QList<CultureCycle*> cultureCycles;
     QString req = QString("SELECT * FROM " + tableName() + " WHERE plotID=:id");
-    qDebug() << "CultureCycleDao::getByPlotId: " << req;
+    //qDebug() << "CultureCycleDao::getByPlotId: " << req;
 
     QSqlQuery q(database());
     q.prepare(req);

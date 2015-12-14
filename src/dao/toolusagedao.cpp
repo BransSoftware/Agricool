@@ -42,7 +42,7 @@ QList<ToolUsage*> ToolUsageDao::getToolUsageByOperation(Operation* operation)
 {
     QList<ToolUsage*> toolUsages;
     QString req = QString("SELECT * FROM " + tableName() + " WHERE operationID=:id");
-    qDebug() << "ToolUsageDao::getToolUsageByOperation: " << req;
+    //qDebug() << "ToolUsageDao::getToolUsageByOperation: " << req;
 
     QSqlQuery q(database());
     q.prepare(req);

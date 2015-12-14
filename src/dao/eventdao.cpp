@@ -48,7 +48,7 @@ QList<Event*> EventDao::getByCultureCycle(CultureCycle* cycle)
 {
     QList<Event*> events;
     QString req = QString("SELECT * FROM " + tableName() + " WHERE cycleID=:id");
-    qDebug() << "EventDao::getByCultureCycle: " << req;
+    //qDebug() << "EventDao::getByCultureCycle: " << req;
 
     QSqlQuery q(database());
     q.prepare(req);

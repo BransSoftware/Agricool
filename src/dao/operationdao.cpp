@@ -56,7 +56,7 @@ QList<Operation*> OperationDao::getByCultureCycle(CultureCycle* cycle)
 {
     QList<Operation*> operations;
     QString req = QString("SELECT * FROM " + tableName() + " WHERE cycleID=:id");
-    qDebug() << "OperationDao::getByCultureCycle: " << req;
+    //qDebug() << "OperationDao::getByCultureCycle: " << req;
 
     QSqlQuery q(database());
     q.prepare(req);

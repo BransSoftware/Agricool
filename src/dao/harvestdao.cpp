@@ -51,7 +51,7 @@ QList<Harvest*> HarvestDao::getByCultureCycle(CultureCycle* cycle)
 {
     QList<Harvest*> harvests;
     QString req = QString("SELECT * FROM " + tableName() + " WHERE cycleID=:id");
-    qDebug() << "HarvestDao::getByCultureCycle: " << req;
+    //qDebug() << "HarvestDao::getByCultureCycle: " << req;
 
     QSqlQuery q(database());
     q.prepare(req);

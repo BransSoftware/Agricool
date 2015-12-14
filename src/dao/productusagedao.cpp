@@ -42,7 +42,7 @@ QList<ProductUsage*> ProductUsageDao::getProductUsageByOperation(Operation* oper
 {
     QList<ProductUsage*> productUsages;
     QString req = QString("SELECT * FROM " + tableName() + " WHERE operationID=:id");
-    qDebug() << "ProductUsageDao::getProductUsageByOperation: " << req;
+    //qDebug() << "ProductUsageDao::getProductUsageByOperation: " << req;
 
     QSqlQuery q(database());
     q.prepare(req);
