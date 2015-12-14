@@ -17,6 +17,7 @@ public:
     virtual void remove(int id);
     virtual void removeAll();
     int count();
+    int getLastId();
 protected:
     virtual T* createFromDb(QSqlRecord record) = 0;
     virtual QString exportToDb(T* model, QHash<QString, QString> &fields) = 0;
@@ -30,6 +31,18 @@ DaoBase<T>::DaoBase(DbService * parent, QSqlDatabase db)
 {
     dbService = parent;
     setEditStrategy(QSqlTableModel::OnRowChange);
+}
+
+template <typename T>
+int DaoBase<T>::getLastId()
+{
+    QSqlQuery lastIdQuery;
+    lastIdQuery.exec("select seq from sqlite_sequence where name='" + tableName() + "'");
+    if (lastIdQuery.first())
+    {
+        return lastIdQuery.record().value(0).toInt();
+    }
+    return -1;
 }
 
 template <typename T>
