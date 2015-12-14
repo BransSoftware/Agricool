@@ -7,6 +7,7 @@ class ToolDao : public DaoBase<Tool>
 {
 public:
     ToolDao(DbService * parent, QSqlDatabase db);
+protected:
     Tool* createFromDb(QSqlRecord record);
     QString exportToDb(Tool* model, QHash<QString, QString> &fields);
 };

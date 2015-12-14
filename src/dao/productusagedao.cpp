@@ -8,7 +8,16 @@ ProductUsageDao::ProductUsageDao(DbService * parent, QSqlDatabase db)
 
 ProductUsage* ProductUsageDao::createFromDb(QSqlRecord record)
 {
-    Operation* operation = dbService->getDao<OperationDao>()->get(record.value(1).toInt());
+    return createFromDb(record, NULL);
+}
+
+ProductUsage* ProductUsageDao::createFromDb(QSqlRecord record, Operation* operation)
+{
+    if (operation == NULL)
+    {
+        operation= dbService->getDao<OperationDao>()->get(record.value(1).toInt());
+    }
+
     Product* product = dbService->getDao<ProductDao>()->get(record.value(2).toInt());
     
     return new ProductUsage(record.value(0).toInt(), // id
@@ -27,4 +36,27 @@ QString ProductUsageDao::exportToDb(ProductUsage* model, QHash<QString, QString>
     //fields["productUsageDate"] = model->get();
 
     return "productUsageID";
+}
+
+QList<ProductUsage*> ProductUsageDao::getProductUsageByOperation(Operation* operation)
+{
+    QList<ProductUsage*> productUsages;
+    QString req = QString("SELECT * FROM " + tableName() + " WHERE operationID=:id");
+    qDebug() << "ProductUsageDao::getProductUsageByOperation: " << req;
+
+    QSqlQuery q(database());
+    q.prepare(req);
+    q.bindValue(":id", operation->getOperationID());
+    if (!q.exec())
+    {
+        qWarning() << q.lastError();
+    }
+
+    while (q.next())
+    {
+        ProductUsage* productUsage = createFromDb(q.record(), operation);
+        productUsages.append(productUsage);
+    }
+
+    return productUsages;
 }

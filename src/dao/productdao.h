@@ -7,6 +7,7 @@ class ProductDao : public DaoBase<Product>
 {
 public:
     ProductDao(DbService * parent, QSqlDatabase db);
+protected:
     Product* createFromDb(QSqlRecord record);
     QString exportToDb(Product* model, QHash<QString, QString> &fields);
 };

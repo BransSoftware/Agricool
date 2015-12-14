@@ -6,10 +6,15 @@ MainWindow::MainWindow(DbService *dbService, QWidget *parent)
 {
     // Get plot from database
     QList<Plot*> allPlots = dbService->getDao<PlotDao>()->getAll();
+
     for(Plot* plot : allPlots)
     {
         qDebug() << "Plot: " << plot->getPlotName();
+        qDebug() << "First cycle: " << plot->getCultureCycles().first()->getCycleName();
     }
+
+    CultureCycle* cycle2 = dbService->getDao<CultureCycleDao>()->get(1);
+    qDebug() << "Name:" << cycle2->getCycleName();
 
     QList<CultureCycle*> allCultureCycles = dbService->getDao<CultureCycleDao>()->getAll();
     for(CultureCycle* cultureCycle : allCultureCycles)

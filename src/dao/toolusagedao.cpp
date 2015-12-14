@@ -8,7 +8,16 @@ ToolUsageDao::ToolUsageDao(DbService * parent, QSqlDatabase db)
 
 ToolUsage* ToolUsageDao::createFromDb(QSqlRecord record)
 {
-    Operation* operation = dbService->getDao<OperationDao>()->get(record.value(1).toInt());
+    return createFromDb(record, NULL);
+}
+
+ToolUsage* ToolUsageDao::createFromDb(QSqlRecord record, Operation* operation)
+{
+    if (operation == NULL)
+    {
+        operation = dbService->getDao<OperationDao>()->get(record.value(1).toInt());
+    }
+
     Tool* tool = dbService->getDao<ToolDao>()->get(record.value(2).toInt());
     
     return new ToolUsage(record.value(0).toInt(), // id
@@ -27,4 +36,26 @@ QString ToolUsageDao::exportToDb(ToolUsage* model, QHash<QString, QString> &fiel
     //fields["toolUsageDate"] = model->get();
 
     return "toolUsageID";
+}
+
+QList<ToolUsage*> ToolUsageDao::getToolUsageByOperation(Operation* operation)
+{
+    QList<ToolUsage*> toolUsages;
+    QString req = QString("SELECT * FROM " + tableName() + " WHERE operationID=:id");
+    qDebug() << "ToolUsageDao::getToolUsageByOperation: " << req;
+
+    QSqlQuery q(database());
+    q.prepare(req);
+    q.bindValue(":id", operation->getOperationID());
+    if (!q.exec())
+    {
+        qWarning() << q.lastError();
+    }
+
+    while (q.next())
+    {
+        toolUsages.append(createFromDb(q.record(), operation));
+    }
+
+    return toolUsages;
 }

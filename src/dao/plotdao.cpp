@@ -44,3 +44,82 @@ QString PlotDao::exportToDb(Plot* model, QHash<QString, QString> &fields)
 
     return "plotID";
 }
+
+QList<Plot*> PlotDao::getAll()
+{
+    return getAll(true);
+}
+
+QList<Plot*> PlotDao::getAll(bool isRecursive)
+{
+    QList<Plot*> models = DaoBase::getAll();
+
+    if (isRecursive)
+    {
+        for(Plot* plot : models)
+        {
+            postGet(plot);
+        }
+    }
+
+    return models;
+}
+
+Plot* PlotDao::get(int id)
+{
+    return get(id, true);
+}
+
+Plot* PlotDao::get(int id, bool isRecursive)
+{
+    Plot* model = DaoBase::get(id);
+
+    if (isRecursive)
+    {
+        postGet(model);
+    }
+
+    return model;
+}
+
+void PlotDao::remove(int id)
+{
+    Plot* plot = get(id);
+
+    postRemove(plot);
+    DaoBase::remove(plot->getPlotID());
+}
+
+void PlotDao::removeAll()
+{
+    QList<Plot*> plots = getAll();
+
+    for(Plot* plot : plots)
+    {
+        postRemove(plot);
+    }
+
+    DaoBase::removeAll();
+}
+
+void PlotDao::postGet(Plot* model)
+{
+    QList<CultureCycle*> cycles = dbService->getDao<CultureCycleDao>()->getByPlot(model);
+    model->setCultureCycles(cycles);
+}
+
+void PlotDao::postAdd(Plot* model)
+{
+}
+
+void PlotDao::postUpdate(Plot* model)
+{
+}
+
+void PlotDao::postRemove(Plot* model)
+{
+    for (CultureCycle* cycle : model->getCultureCycles())
+    {
+        dbService->getDao<CultureCycleDao>()->remove(cycle->getCycleID());
+    }
+}

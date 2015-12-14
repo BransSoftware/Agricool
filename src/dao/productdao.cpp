@@ -20,7 +20,10 @@ Product* ProductDao::createFromDb(QSqlRecord record)
 QString ProductDao::exportToDb(Product* model, QHash<QString, QString> &fields)
 {
     fields["productID"] = QString::number(model->getProductID());
-    fields["productName"] = model->getProductName();
+    if (!model->getProductName().isEmpty())
+    {
+        fields["productName"] = "'" + model->getProductName() + "'";
+    }
     fields["quantityUnitSymbol"] = QString::number(static_cast<int>(model->getQuantityUnit()));
     fields["pricePerQuantityUnit"] = QString::number(model->getPricePerQuantityUnit());
     fields["productType"] = QString::number(static_cast<int>(model->getProductType()));

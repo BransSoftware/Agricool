@@ -19,7 +19,10 @@ Tool* ToolDao::createFromDb(QSqlRecord record)
 QString ToolDao::exportToDb(Tool* model, QHash<QString, QString> &fields)
 {
     fields["toolID"] = QString::number(model->getToolID());
-    fields["toolName"] = model->getToolName();
+    if (!model->getToolName().isEmpty())
+    {
+        fields["toolName"] = "'" + model->getToolName() + "'";
+    }
     fields["costPerHour"] = QString::number(model->getCostPerHour());
     fields["toolType"] = QString::number(static_cast<int>(model->getType()));
 

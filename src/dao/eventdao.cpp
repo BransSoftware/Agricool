@@ -8,10 +8,18 @@ EventDao::EventDao(DbService * parent, QSqlDatabase db)
 
 Event* EventDao::createFromDb(QSqlRecord record)
 {
-    CultureCycle* cultureCycle = dbService->getDao<CultureCycleDao>()->get(record.value(1).toInt());
-    
+    return createFromDb(record, NULL);
+}
+
+Event* EventDao::createFromDb(QSqlRecord record, CultureCycle* cycle)
+{
+    if (cycle == NULL)
+    {
+        cycle = dbService->getDao<CultureCycleDao>()->get(record.value(1).toInt());
+    }
+
     return new Event(record.value(0).toInt(), // id
-        cultureCycle, // culture cycle
+        cycle, // culture cycle
         record.value(2).toInt(), // financial income
         record.value(3).toInt(), // financial cost
         record.value(4).toInt(), // area gain
@@ -28,7 +36,33 @@ QString EventDao::exportToDb(Event* model, QHash<QString, QString> &fields)
     fields["financialCost"] = QString::number(model->getFinancialCost());
     fields["actualAreaGained"] = QString::number(model->getActualAreaGained());
     fields["actualAreaLost"] = QString::number(model->getActualAreaLos());
-    fields["eventDescription"] = model->getEventDescription();
+    if (!model->getEventDescription().isEmpty())
+    {
+        fields["eventDescription"] = "'" + model->getEventDescription() + "'";
+    }
 
     return "eventID";
+}
+
+QList<Event*> EventDao::getByCultureCycle(CultureCycle* cycle)
+{
+    QList<Event*> events;
+    QString req = QString("SELECT * FROM " + tableName() + " WHERE cycleID=:id");
+    qDebug() << "EventDao::getByCultureCycle: " << req;
+
+    QSqlQuery q(database());
+    q.prepare(req);
+    q.bindValue(":id", cycle->getCycleID());
+    if (!q.exec())
+    {
+        qWarning() << q.lastError();
+    }
+
+    while (q.next())
+    {
+        Event* event = createFromDb(q.record(), cycle);
+        events.append(event);
+    }
+
+    return events;
 }

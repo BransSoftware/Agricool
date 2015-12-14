@@ -10,12 +10,13 @@ class DaoBase : public QSqlTableModel
 public:
     DaoBase(DbService * parent, QSqlDatabase db);
 
-    QList<T*> getAll();
-    T* get(int id);
-    void add(T* model);
-    void update(T* model);
-    void remove(int id);
-    void removeAll();
+    virtual QList<T*> getAll();
+    virtual T* get(int id);
+    virtual void add(T* model);
+    virtual void update(T* model);
+    virtual void remove(int id);
+    virtual void removeAll();
+    int count();
 protected:
     virtual T* createFromDb(QSqlRecord record) = 0;
     virtual QString exportToDb(T* model, QHash<QString, QString> &fields) = 0;
@@ -48,11 +49,21 @@ QList<T*> DaoBase<T>::getAll()
 template <typename T>
 T* DaoBase<T>::get(int id)
 {
-    query().exec(QString("SELECT * FROM " + tableName() + " WHERE plotID = %1").arg(id));
+    QString req = QString("SELECT * FROM '" + tableName() + "' WHERE " + primaryKey().fieldName(0) + " = :id");
+    qDebug() << "get: " << req;
 
-    if (query().first())
+    QSqlQuery q(database());
+    q.prepare(req);
+    q.bindValue(":id", id);
+    if (!q.exec())
     {
-        return createFromDb(query().record());
+        qDebug() << "Error" << q.lastError();
+    }
+
+    if (q.first())
+    {
+        T* model = createFromDb(q.record());
+        return model;
     }
     return NULL;
 }
@@ -120,7 +131,7 @@ void DaoBase<T>::update(T* model)
 template <typename T>
 void DaoBase<T>::remove(int id)
 {
-    QString req = QString("DELETE FROM " + tableName() + " WHERE plotID = %1").arg(id);
+    QString req = QString("DELETE FROM " + tableName() + " WHERE " + primaryKey().fieldName(0) + " = %1").arg(id);
     query().exec(req);
 }
 
@@ -129,5 +140,14 @@ void DaoBase<T>::removeAll()
 {
     query().exec("DELETE FROM " + tableName());
 }
+
+template <typename T>
+int DaoBase<T>::count()
+{
+    query().exec(QString("SELECT COUNT(*) FROM " + tableName()));
+
+    return query().record().value(0).toInt();
+}
+
 
 #endif // DAOBASE_H
