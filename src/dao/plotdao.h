@@ -25,6 +25,8 @@ public:
     Plot* get(int id, bool isRecursive);
     virtual Plot* get(int id);
 
+    virtual void add(Plot* model);
+    virtual void update(Plot* model);
     virtual void remove(int id);
     virtual void removeAll();
 

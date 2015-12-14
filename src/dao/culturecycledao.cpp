@@ -120,6 +120,16 @@ CultureCycle* CultureCycleDao::get(int id, bool isRecursive)
     return model;
 }
 
+void CultureCycleDao::add(CultureCycle* model)
+{
+    DaoBase::add(model);
+}
+
+void CultureCycleDao::update(CultureCycle* model)
+{
+    DaoBase::update(model);
+}
+
 void CultureCycleDao::remove(int id)
 {
     CultureCycle* cycle = get(id, false);
@@ -145,6 +155,38 @@ void CultureCycleDao::postGet(CultureCycle* model)
     model->setEvents(dbService->getDao<EventDao>()->getByCultureCycle(model));
     model->setHarvests(dbService->getDao<HarvestDao>()->getByCultureCycle(model));
     model->setOperations(dbService->getDao<OperationDao>()->getByCultureCycle(model));
+}
+
+void CultureCycleDao::postAdd(CultureCycle* model)
+{
+    for (Event* event : model->getEvents())
+    {
+        dbService->getDao<EventDao>()->add(event);
+    }
+    for (Harvest* harvest : model->getHarvests())
+    {
+        dbService->getDao<HarvestDao>()->add(harvest);
+    }
+    for (Operation* operation : model->getOperations())
+    {
+        dbService->getDao<OperationDao>()->add(operation);
+    }
+}
+
+void CultureCycleDao::postUpdate(CultureCycle* model)
+{
+    for (Event* event : model->getEvents())
+    {
+        dbService->getDao<EventDao>()->update(event);
+    }
+    for (Harvest* harvest : model->getHarvests())
+    {
+        dbService->getDao<HarvestDao>()->update(harvest);
+    }
+    for (Operation* operation : model->getOperations())
+    {
+        dbService->getDao<OperationDao>()->update(operation);
+    }
 }
 
 void CultureCycleDao::postRemove(CultureCycle* model)

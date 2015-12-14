@@ -17,6 +17,8 @@ public:
 
     QList<Operation*> getByCultureCycle(CultureCycle* cycle);
 
+    virtual void add(Operation* model);
+    virtual void update(Operation* model);
     virtual void remove(int id);
     virtual void removeAll();
 

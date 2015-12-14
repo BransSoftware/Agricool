@@ -18,6 +18,8 @@ public:
 
     QList<CultureCycle*> getByPlot(Plot* plot);
 
+    virtual void add(CultureCycle* model);
+    virtual void update(CultureCycle* model);
     virtual void remove(int id);
     virtual void removeAll();
 
@@ -28,6 +30,8 @@ protected:
 private:
     CultureCycle* createFromDb(QSqlRecord record, Plot* plot);
     void postGet(CultureCycle* model);
+    void postAdd(CultureCycle* model);
+    void postUpdate(CultureCycle* model);
     void postRemove(CultureCycle* model);
 };
 

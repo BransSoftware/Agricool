@@ -82,6 +82,18 @@ Plot* PlotDao::get(int id, bool isRecursive)
     return model;
 }
 
+void PlotDao::add(Plot* model)
+{
+    DaoBase::add(model);
+    postAdd(model);
+}
+
+void PlotDao::update(Plot* model)
+{
+    DaoBase::update(model);
+    postUpdate(model);
+}
+
 void PlotDao::remove(int id)
 {
     Plot* plot = get(id);
@@ -110,10 +122,18 @@ void PlotDao::postGet(Plot* model)
 
 void PlotDao::postAdd(Plot* model)
 {
+    for (CultureCycle* cycle : model->getCultureCycles())
+    {
+        dbService->getDao<CultureCycleDao>()->add(cycle);
+    }
 }
 
 void PlotDao::postUpdate(Plot* model)
 {
+    for (CultureCycle* cycle : model->getCultureCycles())
+    {
+        dbService->getDao<CultureCycleDao>()->update(cycle);
+    }
 }
 
 void PlotDao::postRemove(Plot* model)
