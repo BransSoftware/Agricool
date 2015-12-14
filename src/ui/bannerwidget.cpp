@@ -3,7 +3,7 @@
 BannerWidget::BannerWidget(QWidget *parent) :
     QFrame(parent)
 {
-    this->setStyleSheet("background-color: darkgray;"
+    this->setStyleSheet("background-color: lightblue;"
                         "border-radius: 10px;");
 
     this->setMinimumSize(400,40);
@@ -41,21 +41,32 @@ BannerWidget::BannerWidget(QWidget *parent) :
 
 void BannerWidget::showHideDetails(){
 
+    QPropertyAnimation *anim = new QPropertyAnimation(this, "minimumHeight");
+
+
     if (!details1->isVisible()){
+
+//            anim->setStartValue(40);
+//            anim->setEndValue(160);
+//            anim->setDuration(200);
+//            anim->start(QAbstractAnimation::DeleteWhenStopped);
             details1->show();
             details2->show();
             details3->show();
             expand->setToolTip(tr("Hide Details"));
             expand->setIcon(QIcon(":/resources/icons/shrink.png"));
-            this->setMinimumSize(400,160);
         }
         else{
+
+//            anim->setStartValue(160);
+//            anim->setEndValue(40);
+//            anim->setDuration(200);
+//            anim->start(QAbstractAnimation::DeleteWhenStopped);
             details1->hide();
             details2->hide();
             details3->hide();
             expand->setToolTip(tr("Show Details"));
             expand->setIcon(QIcon(":/resources/icons/expand.png"));
-            this->setMinimumSize(400,40);
         }
 
 }
