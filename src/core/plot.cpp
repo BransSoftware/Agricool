@@ -42,12 +42,12 @@ void Plot::setIsOwned(bool value)
     isOwned = value;
 }
 
-int Plot::getYearlyRent() const
+double Plot::getYearlyRent() const
 {
     return yearlyRent;
 }
 
-void Plot::setYearlyRent(int value)
+void Plot::setYearlyRent(double value)
 {
     yearlyRent = value;
 }

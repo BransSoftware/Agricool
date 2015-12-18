@@ -31,8 +31,8 @@ public:
     bool getIsOwned() const;
     void setIsOwned(bool value);
 
-    int getYearlyRent() const;
-    void setYearlyRent(int value);
+    double getYearlyRent() const;
+    void setYearlyRent(double value);
 
     QList<CultureCycle *> getCultureCycles() const;
     void setCultureCycles(const QList<CultureCycle *> &value);
@@ -61,7 +61,7 @@ private:
     QString plotName;
     double size; //plot size in square meter
     bool isOwned; //
-    int yearlyRent; // (€)
+    double yearlyRent; // (€)
     QList<CultureCycle *> cultureCycles;
     QString comment;
     SubjectiveQuality soilQuality; //optional

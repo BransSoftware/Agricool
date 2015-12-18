@@ -1,6 +1,6 @@
-#include "src/ui/bannerwidget.h"
+#include "src/ui/plotbanner.h"
 
-BannerWidget::BannerWidget(QWidget *parent) :
+PlotBanner::PlotBanner(QWidget *parent) :
     QFrame(parent)
 {
     this->setStyleSheet("background-color: lightblue;"
@@ -39,7 +39,7 @@ BannerWidget::BannerWidget(QWidget *parent) :
 
 }
 
-void BannerWidget::showHideDetails(){
+void PlotBanner::showHideDetails(){
 
     QPropertyAnimation *anim = new QPropertyAnimation(this, "minimumHeight");
 
@@ -71,6 +71,6 @@ void BannerWidget::showHideDetails(){
 
 }
 
-BannerWidget::~BannerWidget()
+PlotBanner::~PlotBanner()
 {
 }

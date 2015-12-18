@@ -4,6 +4,7 @@
 MainWindow::MainWindow(DbService *dbService, QWidget *parent)
     : QMainWindow(parent)
 {
+    db = dbService;
     // Get plot from database
     QList<Plot*> allPlots = dbService->getDao<PlotDao>()->getAll();
 
@@ -21,10 +22,6 @@ MainWindow::MainWindow(DbService *dbService, QWidget *parent)
     {
         qDebug() << "CultureCycle: " << cultureCycle->getCycleName() << " " << cultureCycle->getCultivatedPlot()->getPlotName();
     }
-
-    //deleting parentless objects to avoid memory leak
-    while (!allCultureCycles.isEmpty())
-        delete allCultureCycles.takeFirst();
 
     //checkUser();
     //initDB();
@@ -79,15 +76,7 @@ void MainWindow::initToolbar(){
 
 void MainWindow::initPlots(){
 
-    plotWidget = new QWidget(this);
-    plotWidget->setStyleSheet("background-color: white;");
-    QVBoxLayout* lay = new QVBoxLayout(plotWidget);
-
-    for(int i =0; i<10;i++)
-        lay->addWidget(new BannerWidget(plotWidget),0,Qt::AlignTop);
-
-    lay->addStretch(100);
-    plotWidget->setLayout(lay);
+    plotWidget = new PlotWidget(db, this);
     this->setCentralWidget(plotWidget);
     plotWidget->show();
 

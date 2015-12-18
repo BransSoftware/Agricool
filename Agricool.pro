@@ -24,8 +24,6 @@ SOURCES += src/core/culturecycle.cpp \
     src/core/toolusage.cpp \
     src/dao/plotdao.cpp \
     src/dao/culturecycledao.cpp \
-    src/ui/bannerwidget.cpp \
-    src/ui/mainwindow.cpp \
     src/dao/eventdao.cpp \
     src/dao/harvestdao.cpp \
     src/dao/operationdao.cpp \
@@ -34,7 +32,10 @@ SOURCES += src/core/culturecycle.cpp \
     src/dao/tooldao.cpp \
     src/dao/toolusagedao.cpp \
     src/dao/daofactory.cpp \
-    src/service/dbService.cpp
+    src/service/dbService.cpp \
+    src/ui/mainwindow.cpp \
+    src/ui/plotbanner.cpp \
+    src/ui/plotwidget.cpp
 
 HEADERS  += src/core/culturecycle.h \
     src/core/enums.h \
@@ -48,7 +49,7 @@ HEADERS  += src/core/culturecycle.h \
     src/core/toolusage.h \
     src/dao/plotdao.h \
     src/dao/culturecycledao.h \
-    src/ui/bannerwidget.h \
+    src/ui/plotbanner.h \
     src/ui/mainwindow.h \
     src/dao/daobase.h \
     src/dao/eventdao.h \
@@ -59,7 +60,8 @@ HEADERS  += src/core/culturecycle.h \
     src/dao/tooldao.h \
     src/dao/toolusagedao.h \
     src/dao/daofactory.h \
-    src/service/dbService.h
+    src/service/dbService.h \
+    src/ui/plotwidget.h
 
 
 RESOURCES += \

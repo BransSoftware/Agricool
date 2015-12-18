@@ -152,6 +152,6 @@ void DbService::createData()
 {
     qDebug() << "Create data";
 
-    db.exec("INSERT INTO `Plot` (plotID,name,size,isOwned,yearlyRent,comment,soilQuality,waterDrainage,rocksQuantity,animalDamageRisks,climateDamageRisks) VALUES (1,'Parcelle_Routeau',4.4,1,NULL,NULL,3,0,0,0,0)");
+    db.exec("INSERT INTO `Plot` (plotID,name,size,isOwned,yearlyRent,comment,soilQuality,waterDrainage,rocksQuantity,animalDamageRisks,climateDamageRisks) VALUES (1,'Routeau',45000.0,1,NULL,'Parcelle en face de la fontaine',3,0,0,0,0)");
     db.exec("INSERT INTO `CultureCycle` (cycleID,plotID,name,area,startDate,endDate,isComplete,estimatedCost,estimatedIncome,openComment) VALUES (1,1,'Culture Cycle 1',3,1449005000,NULL,0,10000.0,12000.0,NULL)");
 }

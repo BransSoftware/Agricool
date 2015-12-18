@@ -6,8 +6,10 @@
 #include <QMenu>
 #include <QToolBar>
 #include <QScrollArea>
-#include "src/ui/bannerwidget.h"
+#include "src/ui/plotbanner.h"
 #include "src/service/dbService.h"
+#include "src/ui/plotwidget.h"
+
 
 class MainWindow : public QMainWindow
 {
@@ -26,18 +28,18 @@ private:
     void initToolbar();
     void initPlots();
 
-
-
     QMenu* fileMenu;
     QMenu* optionMenu;
     QMenu* helpMenu;
 
     QToolBar* toolbar;
-    QWidget* plotWidget;
+    PlotWidget* plotWidget;
     QWidget* farmingCycleWidget;
     QWidget* toolsWidget;
     QWidget* consumbaleWidget;
     QWidget* chartWidget;
+
+    DbService *db;
 
 };
 
