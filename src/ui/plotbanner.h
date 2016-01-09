@@ -13,17 +13,20 @@
 #include <QMessageBox>
 
 #include "src/core/plot.h"
+#include "src/service/dbservice.h"
 
 class PlotBanner : public QFrame
 {
     Q_OBJECT
 public:
-     PlotBanner(Plot* p, QWidget *parent = 0);
+     PlotBanner(DbService *db, Plot* p, QWidget *parent = 0);
      ~PlotBanner();
 
      Plot* getPlot();
 
 private :
+     DbService *db;
+
     QLabel* plotNameL;
     QLabel* plotSizeL;
     QLabel* currentCycleL;

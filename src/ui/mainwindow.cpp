@@ -5,23 +5,6 @@ MainWindow::MainWindow(DbService *dbService, QWidget *parent)
     : QMainWindow(parent)
 {
     db = dbService;
-    // Get plot from database
-    QList<Plot*> allPlots = dbService->getDao<PlotDao>()->getAll();
-
-    for(Plot* plot : allPlots)
-    {
-        qDebug() << "Plot: " << plot->getPlotName();
-        qDebug() << "First cycle: " << plot->getCultureCycles().first()->getCycleName();
-    }
-
-    CultureCycle* cycle2 = dbService->getDao<CultureCycleDao>()->get(1);
-    qDebug() << "Name:" << cycle2->getCycleName();
-
-    QList<CultureCycle*> allCultureCycles = dbService->getDao<CultureCycleDao>()->getAll();
-    for(CultureCycle* cultureCycle : allCultureCycles)
-    {
-        qDebug() << "CultureCycle: " << cultureCycle->getCycleName() << " " << cultureCycle->getCultivatedPlot()->getPlotName();
-    }
 
     //checkUser();
     //initDB();
@@ -32,8 +15,6 @@ MainWindow::MainWindow(DbService *dbService, QWidget *parent)
     //initConsumables();
     //loadDB();
     //loadPreferences();
-
-
 }
 
 void MainWindow::testAnimation(){

@@ -32,13 +32,13 @@ void PlotWidget::update()
         bool isAlreadyVisible= false;
         foreach (PlotBanner* pb, banners)
         {
-            if(pb->getPlot() == p)
+            if(pb->getPlot()->getPlotID() == p->getPlotID())
                 isAlreadyVisible=true;
         }
 
         if(!isAlreadyVisible)
         {
-            banners.append(new PlotBanner(p,this));
+            banners.append(new PlotBanner(db, p,this));
             lay->addWidget(banners.last(),0,Qt::AlignTop);
         }
     }
@@ -50,5 +50,8 @@ void PlotWidget::update()
 
 void PlotWidget::addNewPlot()
 {
+    // Add new plot in DB
+    db->getDao<PlotDao>()->add(new Plot(db->getDao<PlotDao>()->getLastId()));
 
+    update();
 }

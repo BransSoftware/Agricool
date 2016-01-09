@@ -3,7 +3,7 @@
 DbService::DbService(QObject *parent) : QObject(parent)
 {    
     QFileInfo dbPath( QFileInfo(QCoreApplication::applicationFilePath()).absolutePath() + "/db.sqlite");
-    bool createSchema = true; //!dbPath.exists();
+    bool createSchema = !dbPath.exists();
 
     db = QSqlDatabase::addDatabase("QSQLITE");
     db.setDatabaseName(dbPath.absoluteFilePath());

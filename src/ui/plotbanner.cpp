@@ -1,9 +1,12 @@
 #include "src/ui/plotbanner.h"
+#include "src/dao/plotdao.h"
+#include "src/ui/plotwidget.h"
 #include <QDebug>
 
-PlotBanner::PlotBanner(Plot* p, QWidget *parent) :
+PlotBanner::PlotBanner(DbService *d, Plot* p, QWidget *parent) :
     QFrame(parent)
 {
+    db = d;
     plot=p;
     isEditable = false;
     this->setMinimumSize(400,40);
@@ -244,10 +247,12 @@ void PlotBanner::accept()
         QMessageBox::warning(this, tr("Nom de parcelle invalide"), tr("Vous devez entrer un nom de parcelle pour valider les modifications"));
     else
     {
+        QLocale french(QLocale::French);
+
         plot->setPlotName(plotNameLE->text());
-        plot->setSize(plotSizeSB->text().toDouble()*10000.0);
+        plot->setSize(french.toDouble(plotSizeSB->text().split(' ').first())*10000.0);
         plot->setIsOwned((bool)isOwnerCB->currentIndex());
-        plot->setYearlyRent(rentSB->text().toDouble());
+        plot->setYearlyRent(french.toDouble(rentSB->text().split(' ').first()));
         plot->setComment(commentLE->text());
 
         isEditable=false;
@@ -264,6 +269,8 @@ void PlotBanner::accept()
 //        plot->setRocksQuantity();
 //        plot->setAnimalDamageRisks();
 //        plot->setClimateDamageRisks();
+
+        db->getDao<PlotDao>()->update(plot);
     }
 }
 
@@ -302,8 +309,9 @@ void PlotBanner::deletePlot()
                              tr("Etes-vous sûr de vouloir supprimer la parcelle ").append(plot->getPlotName())\
                              .append(tr(" ?")),QMessageBox::Ok, QMessageBox::Cancel)==QMessageBox::Ok)
     {
-        //test remove plot from db
-        qDebug() << "remove plot" << plot->getPlotName();
+        db->getDao<PlotDao>()->remove(plot->getPlotID());
+        //((PlotWidget*)this->parent())->update();
+        qDebug() << "remove plot:" << plot->getPlotName();
     }
 }
 
